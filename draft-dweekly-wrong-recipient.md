@@ -32,6 +32,7 @@ normative:
 
 informative:
   RFC8058:
+  RFC7489:
 
 --- abstract
 
