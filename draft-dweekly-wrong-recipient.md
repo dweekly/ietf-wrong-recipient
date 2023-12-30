@@ -3,7 +3,7 @@ title: "Adding a Wrong Recipient URL for Handling Misdirected Emails"
 abbrev: "Wrong Recipient"
 category: info
 
-docname: draft-dweekly-wrong-recipient
+docname: draft-dweekly-wrong-recipient-latest
 submissiontype: independent  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
