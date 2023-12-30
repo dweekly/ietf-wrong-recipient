@@ -3,7 +3,7 @@ title: "Adding a Wrong Recipient URL for Handling Misdirected Emails"
 abbrev: "Wrong Recipient"
 category: info
 
-docname: draft-dweekly-wrong-recipient-latest
+docname: draft-dweekly-wrong-recipient
 submissiontype: independent  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
@@ -70,15 +70,102 @@ _which_ email was sent to the wrong recipient. For this reason, the
 sender may also include an opaque blob in the header to specify the
 account ID referenced in the email; this is included in the POST.
 
+Note that this kind of misdelivery shouldn't be possible if a service
+uses email confirmation, such as sending an email address a confirmation
+link to click on at time of enrollment.
 
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
 
+# High-Level Goals
+
+Allow a recipient to stop receiving emails intended for someone else.
+
+Allow a service to discover when they have the wrong email for a user.
+
+# Out of Scope
+
+This document does not propose a mechanism for automatically discovering
+whether a given user is the correct recipient of an email, though it is
+possible to use some of the signals in an email, such as the intended
+recipient name, to infer a possible mismatch between actual and intended
+recipients.
+
+# Implementation
+
+## Mail Senders When Sending
+
+Mail Senders that wish to be notified when a misdelivery has occurred
+SHOULD include a Wrong-Recipient header with an HTTPS URI to which the
+recipient's mail client can POST. If this header is included, the mail
+sender MUST ensure this endpoint is valid.
+
+The sender MUST encode a mapping to the underlying account identifier
+in the URI in order to allow the service to know which of their users
+has an incorrect email.
+
+## Mail Recipients
+
+When a mail client receives an email that includes a Wrong-Recipient
+header, an option SHOULD be exposed in the user interface that allows
+a recipient to indicate that the mail was intended for another user.
+
+If the user selects this option, the mail client MUST perform an
+HTTPS POST to the URI in the Wrong-Recipient header
+
+## Mail Senders After Wrong Sender Notification
+
+When a misdelivery has been indicated by a POST to the HTTPS URI, the
+sender MUST make a reasonable effort to cease emails to the indicated
+email address for that user account.
+
+Any GET request to this URI MUST be ignored, since anti-spam software
+may attempt a GET request to URIs mentioned in mail headers.
+
+The sender SHOULD make a best effort to attempt to discern a correct
+email address for the user account. How the sender should accomplish
+this task is not part of this specification.
+
+# Additional Requirements
+
+The email needs at least one valid authentication identifier.  In
+this version of the specification the only supported identifier type
+is DKIM [RFC7489], that provides a domain-level identifier in the
+content of the "d=" tag of a validated DKIM-Signature header field.
+
+The Wrong-Recipient header needs to be included in the "h=" tag of a
+valid DKIM-Signature header field.
+
+The domain used in the HTTPS URI MUST align with the domain used in
+the "d=" tag of the valid DKIM-Signature header field in which the
+headers are included in the "h=" tag.
+
+# Examples
+
+  Header in Email
+
+Wrong-Recipient: <https://example.com/wrong-recipient?uid=12345&email=user@example.org>
+
+  Resulting POST request
+
+POST /wrong-recipient?uid=12345&email=user@example.org HTTP/1.1
+Host: example.com
 
 # Security Considerations
 
-TODO Security
+The Wrong-Recipient header will contain the recipient address, but
+that is already exposed in other header fields like To:.
+
+The user ID of the recipient with the sending service may be exposed
+by the Wrong-Recipient URI, which may not be desired but a sender
+may use an opaque blob to perform a mapping to a user ID on their
+end without leaking any information to outside parties.
+
+A bad actor with access to the user's email could maliciously
+indicate the recipient was a Wrong Recipient with any services that
+used this protocol, causing mail delivery and potentially account
+access difficulties for the user.
 
 
 # IANA Considerations
@@ -91,4 +178,4 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge.
+TODO
