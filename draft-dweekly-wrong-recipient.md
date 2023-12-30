@@ -145,12 +145,16 @@ headers are included in the "h=" tag.
 
 Header in Email
 
-``Wrong-Recipient: <https://example.com/wrong-recipient?uid=12345&email=user@example.org>``
+```
+Wrong-Recipient: <https://example.com/wrong-recipient?uid=12345&email=user@example.org>
+```
 
 Resulting POST request
 
-``POST /wrong-recipient?uid=12345&email=user@example.org HTTP/1.1
-Host: example.com``
+```
+POST /wrong-recipient?uid=12345&email=user@example.org HTTP/1.1
+Host: example.com
+```
 
 # Security Considerations
 
