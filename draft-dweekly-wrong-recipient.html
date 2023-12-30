@@ -1317,10 +1317,14 @@ headers are included in the "h=" tag.<a href="#section-6-3" class="pilcrow">¶</
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
       </h2>
 <p id="section-7-1">Header in Email<a href="#section-7-1" class="pilcrow">¶</a></p>
-<p id="section-7-2"><code>Wrong-Recipient: &lt;https://example.com/wrong-recipient?uid=12345&amp;email=user@example.org&gt;</code><a href="#section-7-2" class="pilcrow">¶</a></p>
+<p id="section-7-2"><code>
+Wrong-Recipient: &lt;https://example.com/wrong-recipient?uid=12345&amp;email=user@example.org&gt;
+</code><a href="#section-7-2" class="pilcrow">¶</a></p>
 <p id="section-7-3">Resulting POST request<a href="#section-7-3" class="pilcrow">¶</a></p>
-<p id="section-7-4"><code>POST /wrong-recipient?uid=12345&amp;email=user@example.org HTTP/1.1
-Host: example.com</code><a href="#section-7-4" class="pilcrow">¶</a></p>
+<p id="section-7-4"><code>
+POST /wrong-recipient?uid=12345&amp;email=user@example.org HTTP/1.1
+Host: example.com
+</code><a href="#section-7-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
