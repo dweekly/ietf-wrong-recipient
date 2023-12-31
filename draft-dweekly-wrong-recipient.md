@@ -61,7 +61,7 @@ it has an endpoint to indicate a "wrong recipient" of an email. If this
 header is present in an email message, the user can select an option to
 indicate that they are not the intended recipient.
 
-Similar to one-click unsubscription [RFC8058](https://www.ietf.org/rfc/rfc8058.txt), the mail service can
+Similar to one-click unsubscription [RFC8058], the mail service can
 perform this action in the background as an HTTPS POST to the provided
 URL without requiring the user's further attention to the matter.
 
