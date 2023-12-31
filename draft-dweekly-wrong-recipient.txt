@@ -4,8 +4,8 @@
 
 Network Working Group                                          D. Weekly
 Internet-Draft                                               Capital One
-Intended status: Informational                          30 December 2023
-Expires: 2 July 2024
+Intended status: Informational                          31 December 2023
+Expires: 3 July 2024
 
 
       Adding a Wrong Recipient URL for Handling Misdirected Emails
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 July 2024.
+   This Internet-Draft will expire on 3 July 2024.
 
 Copyright Notice
 
@@ -98,10 +98,10 @@ Table of Contents
    select an option to indicate that they are not the intended
    recipient.
 
-   Similar to one-click unsubscription RFC8058
-   (https://www.ietf.org/rfc/rfc8058.txt), the mail service can perform
-   this action in the background as an HTTPS POST to the provided URL
-   without requiring the user's further attention to the matter.
+   Similar to one-click unsubscription [RFC8058], the mail service can
+   perform this action in the background as an HTTPS POST to the
+   provided URL without requiring the user's further attention to the
+   matter.
 
    Since it's possible the user may have a separate valid account with
    the sending service, it may be important that the sender be able to
