@@ -4,8 +4,8 @@
 
 Network Working Group                                          D. Weekly
 Internet-Draft                                               Capital One
-Intended status: Informational                          31 December 2023
-Expires: 3 July 2024
+Intended status: Informational                            3 January 2024
+Expires: 6 July 2024
 
 
       Adding a Wrong Recipient URL for Handling Misdirected Emails
@@ -44,11 +44,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 July 2024.
+   This Internet-Draft will expire on 6 July 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -181,10 +181,6 @@ Table of Contents
    The Wrong-Recipient header needs to be included in the "h=" tag of a
    valid DKIM-Signature header field.
 
-   The domain used in the HTTPS URI MUST align with the domain used in
-   the "d=" tag of the valid DKIM-Signature header field in which the
-   headers are included in the "h=" tag.
-
 7.  Examples
 
    Header in Email
@@ -214,7 +210,20 @@ Table of Contents
 
 9.  IANA Considerations
 
-   This document has no IANA actions.
+   IANA will be requested to add a new entry to the "Permanent Message
+   Header Field Names" registry.
+
+   Header field name: Wrong-Recipient
+
+   Protocol: mail
+
+   Status: Provisional
+
+   Author/Change controller: IETF
+
+   Specification document(s): _** This document **_
+
+   Related information: none
 
 10.  References
 
@@ -243,7 +252,8 @@ Table of Contents
 
 Acknowledgments
 
-   TODO
+   Many thanks to John Levine for his review of the first draft and
+   actionable feedback.
 
 Author's Address
 
