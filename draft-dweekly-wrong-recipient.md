@@ -169,17 +169,12 @@ access difficulties for the user.
 IANA will be requested to add a new entry to the "Permanent Message Header Field
 Names" registry.
 
-Header field name: Wrong-Recipient
-
-Protocol: mail
-
-Status: Provisional
-
-Author/Change controller: IETF
-
-Specification document(s): *** This document ***
-
-Related information: none
+    Header field name: Wrong-Recipient
+    Protocol: mail
+    Status: Provisional
+    Author/Change controller: IETF
+    Specification document(s): *** This document ***
+    Related information: none
 
 --- back
 
