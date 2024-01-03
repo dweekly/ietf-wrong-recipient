@@ -138,10 +138,6 @@ content of the "d=" tag of a validated DKIM-Signature header field.
 The Wrong-Recipient header needs to be included in the "h=" tag of a
 valid DKIM-Signature header field.
 
-The domain used in the HTTPS URI MUST align with the domain used in
-the "d=" tag of the valid DKIM-Signature header field in which the
-headers are included in the "h=" tag.
-
 # Examples
 
 Header in Email
@@ -175,12 +171,24 @@ access difficulties for the user.
 
 # IANA Considerations
 
-This document has no IANA actions.
+IANA will be requested to add a new entry to the "Permanent Message Header Field
+Names" registry.
 
+Header field name: Wrong-Recipient
+
+Protocol: mail
+
+Status: Provisional
+
+Author/Change controller: IETF
+
+Specification document(s): *** This document ***
+
+Related information: none
 
 --- back
 
 # Acknowledgments
 {:numbered="false"}
 
-TODO
+Many thanks to John Levine for his review of the first draft and actionable feedback.
