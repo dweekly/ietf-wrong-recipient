@@ -58,7 +58,7 @@ the service, and the inadvertent recipient all prefer correct delivery.
 
 Consequently, there ought be a mechanism whereby a service can indicate
 it has an endpoint to indicate a "wrong recipient" of an email. If this
-header is present in an email message, the user can select an option to
+header field is present in an email message, the user can select an option to
 indicate that they are not the intended recipient.
 
 Similar to one-click unsubscription [RFC8058], the mail service can
@@ -68,12 +68,11 @@ URL without requiring the user's further attention to the matter.
 Since it's possible the user may have a separate valid account with the
 sending service, it may be important that the sender be able to tie
 _which_ email was sent to the wrong recipient. For this reason, the
-sender may also include an opaque blob in the header to specify the
+sender may also include an opaque blob in the header field to specify the
 account ID referenced in the email; this is included in the POST.
 
 Note that this kind of misdelivery shouldn't be possible if a service
-uses email confirmation, such as sending an email address a confirmation
-link to click on at time of enrollment.
+has previously verified the user's email address.
 
 # Conventions and Definitions
 
@@ -98,8 +97,8 @@ recipients.
 ## Mail Senders When Sending
 
 Mail Senders that wish to be notified when a misdelivery has occurred
-SHOULD include a Wrong-Recipient header with an HTTPS URI to which the
-recipient's mail client can POST. If this header is included, the mail
+SHOULD include a Wrong-Recipient header field with an HTTPS URI to which the
+recipient's mail client can POST. If this header field is included, the mail
 sender MUST ensure this endpoint is valid.
 
 The sender MUST encode a mapping to the underlying account identifier
@@ -109,11 +108,11 @@ has an incorrect email.
 ## Mail Recipients
 
 When a mail client receives an email that includes a Wrong-Recipient
-header, an option SHOULD be exposed in the user interface that allows
+header field, an option SHOULD be exposed in the user interface that allows
 a recipient to indicate that the mail was intended for another user.
 
 If the user selects this option, the mail client MUST perform an
-HTTPS POST to the URI in the Wrong-Recipient header
+HTTPS POST to the URI in the Wrong-Recipient header field.
 
 ## Mail Senders After Wrong Sender Notification
 
@@ -135,7 +134,7 @@ this version of the specification the only supported identifier type
 is DKIM [RFC7489], that provides a domain-level identifier in the
 content of the "d=" tag of a validated DKIM-Signature header field.
 
-The Wrong-Recipient header needs to be included in the "h=" tag of a
+The Wrong-Recipient header field needs to be included in the "h=" tag of a
 valid DKIM-Signature header field.
 
 # Examples
@@ -155,7 +154,7 @@ Host: example.com
 
 # Security Considerations
 
-The Wrong-Recipient header will contain the recipient address, but
+The Wrong-Recipient header field will contain the recipient address, but
 that is already exposed in other header fields like To:.
 
 The user ID of the recipient with the sending service may be exposed
@@ -191,4 +190,6 @@ Related information: none
 # Acknowledgments
 {:numbered="false"}
 
-Many thanks to John Levine for his review of the first draft and actionable feedback.
+Many thanks to John Levine, Oliver Deighton, and Murray Kucherawy for their
+kind and actionable feedback on the language and proposal. Thanks to
+Eliot Lear for helping guide the draft to the right hands for review.
