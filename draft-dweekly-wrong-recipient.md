@@ -33,37 +33,44 @@ normative:
 informative:
   RFC8058:
   RFC7489:
+  RFC2369:
 
 --- abstract
 
-This document describes a mechanism for an email recipient to indicate that
-they are not the intended recipient of an email, providing that signal back
-to the originating mail server.
+This document describes a mechanism for an email recipient to indicate to a
+sender that they are not the intended recipient.
 
 --- middle
 
 # Introduction
 
-Email recipients today have no clear option as to how to best signal to a
-provider that they are not the correct recipient of an email. This is a
-different issue than either an unsubscription request from a mailing list
-or reporting an email as spam, since the service itself may be a valid
-sender attempting to reach some user for a valid purpose, but the sender
-may have inadvertently recorded the wrong email address either due to
-user error or data entry error.
+Many users with common names and/or short email addresses receive
+transactional emails from service providers intended for others. These
+emails can't be unsubscribed (as they are transactional) but neither are
+they spam. These emails commonly are from a noreply@ email address; there
+is no standards-based mechanism to report a "wrong recipient" to the
+sender. Doing so is in the interest of all three involved parties: the
+inadvertent recipient (who does not want the email), the sender (who wants
+to be able to reach their customer and who does not want the liability of
+transmitting PII to a third party), and the valid recipient.
 
-There is collective benefit to all parties if a service is able to detect
-when an email address is incorrect for a user; the intended recipient,
-the service, and the inadvertent recipient all prefer correct delivery.
+This document proposes a structured mechanism for the reporting of such
+misdirected email via either HTTPS POST or email inbox, directly mirroring
+the List-Unsubscribe and List-Unsubscribe-Post mechanisms of [RFC2369] and
+[RFC8058] respectively.
 
-Consequently, there ought be a mechanism whereby a service can indicate
+# Proposal
+
+There ought be a mechanism whereby a service can indicate
 it has an endpoint to indicate a "wrong recipient" of an email. If this
 header field is present in an email message, the user can select an option to
 indicate that they are not the intended recipient.
 
 Similar to one-click unsubscription [RFC8058], the mail service can
 perform this action in the background as an HTTPS POST to the provided
-URL without requiring the user's further attention to the matter.
+URL without requiring the user's further attention to the matter. A
+mailto: URI may also be included for non-HTTP MUAs, akin to List-Unsubscribe
+from [RFC2369].
 
 Since it's possible the user may have a separate valid account with the
 sending service, it may be important that the sender be able to tie
@@ -72,7 +79,7 @@ sender may also include an opaque blob in the header field to specify the
 account ID referenced in the email; this is included in the POST.
 
 Note that this kind of misdelivery shouldn't be possible if a service
-has previously verified the user's email address.
+has previously verified the user's email address for the account.
 
 # Conventions and Definitions
 
@@ -98,29 +105,51 @@ recipients.
 
 Mail Senders that wish to be notified when a misdelivery has occurred
 SHOULD include a Wrong-Recipient header field with an HTTPS URI to which the
-recipient's mail client can POST. If this header field is included, the mail
-sender MUST ensure this endpoint is valid.
+recipient's mail client can POST and/or a mailto: URI to which an email
+should be sent. If this header field is included, the mail sender MUST
+ensure these endpoints are valid for a period of at least one year after
+sending.
 
 The sender MUST encode a mapping to the underlying account identifier
-in the URI in order to allow the service to know which of their users
+in the URI in order to allow the service to know which of their accounts
 has an incorrect email.
+
+The URI SHOULD include an opaque identifier or another hard-to-forge
+component in addition to, or instead of, the plaintext recipient email
+address and user ID in order to prevent a malicious party from exercising
+the endpoint on a victim's behalf. Possible examples include using a
+signature parameter to the URI or UUID with a sender-local database
+lookup to retrieve the email and user ID referenced.
 
 ## Mail Recipients
 
 When a mail client receives an email that includes a Wrong-Recipient
 header field, an option SHOULD be exposed in the user interface that allows
-a recipient to indicate that the mail was intended for another user.
+a recipient to indicate that the mail was intended for another user, if
+and only if the email is reasonably assured to not be spam, e.g. if both
+DKIM and SPF are passing with a valid DMARC record.
 
 If the user selects this option, the mail client MUST perform an
-HTTPS POST to the URI in the Wrong-Recipient header field.
+HTTPS POST to the first https URI in the Wrong-Recipient header field,
+or send an empty message to the first referenced mailto: address.
+
+The POST request MUST NOT include cookies, HTTP authorization, or any
+other context information. The "wrong recipient" reporting operation is
+logically unrelated to any previous web activity, and context information
+could inappropriately link the report to previous activity.
+
+The POST body MUST include only "Wrong-Recipient=true".
 
 ## Mail Senders After Wrong Sender Notification
 
-When a misdelivery has been indicated by a POST to the HTTPS URI, the
-sender MUST make a reasonable effort to cease emails to the indicated
-email address for that user account.
+When a misdelivery has been indicated by a POST to the HTTPS URI or
+email to the given mailto: URI, the sender MUST make a reasonable effort
+to cease emails to the indicated email address for that user account.
 
-Any GET request to this URI MUST be ignored, since anti-spam software
+The POST endpoint MUST NOT issue an HTTP redirect and should return a
+200 OK status; the content body will be ignored.
+
+Any GET request to the same URI MUST be ignored, since anti-spam software
 may attempt a GET request to URIs mentioned in mail headers.
 
 The sender SHOULD make a best effort to attempt to discern a correct
@@ -139,35 +168,78 @@ valid DKIM-Signature header field.
 
 # Examples
 
-Header in Email
+## Signed HTTPS URI
 
-    Wrong-Recipient: <https://example.com/wrong-recipient?uid=12345&email=user@example.org>
+Header in Email:
+
+    Wrong-Recipient: <https://example.com/wrong-recipient?uid=12345&email=user@example.org&sig=a29c83d>
 
 Resulting POST request
 
-    POST /wrong-recipient?uid=12345&email=user@example.org HTTP/1.1
+    POST /wrong-recipient?uid=12345&email=user@example.org&sig=a29c83d HTTP/1.1
     Host: example.com
+    Content-Length: 20
+
+    Wrong-Recipient=true
+
+## UUID HTTPS URI
+
+Header in Email:
+
+    Wrong-Recipient: <https://example.com/wrong-recipient?uuid=c002bd9a-e015-468f-8621-9baf6fca12aa>
+
+Resulting POST request
+
+    POST /wrong-recipient?uuid=c002bd9a-e015-468f-8621-9baf6fca12aa HTTP/1.1
+    Host: example.com
+    Content-Length: 20
+
+    Wrong-Recipient=true
+
+## Combined mailto: and HTTPS URIs
+
+Header in Email:
+
+    Wrong-Recipient:
+        <https://example.com/wrong-recipient?uuid=c002bd9a-e015-468f-8621-9baf6fca12aa>,
+        <mailto:wrong-recipient.c002bd9a-e015-468f-8621-9baf6fca12aa@example.org>
+
 
 # Security Considerations
 
-The Wrong-Recipient header field will contain the recipient address, but
+The Wrong-Recipient header field may contain the recipient address, but
 that is already exposed in other header fields like To:.
 
 The user ID of the recipient with the sending service may be exposed
 by the Wrong-Recipient URI, which may not be desired but a sender
-may use an opaque blob to perform a mapping to a user ID on their
-end without leaking any information to outside parties.
+can instead use an opaque blob to perform a mapping to a user ID on their
+end without leaking any information to outside parties, such as the UUID
+examples given above.
 
 A bad actor with access to the user's email could maliciously
 indicate the recipient was a Wrong Recipient with any services that
 used this protocol, causing mail delivery and potentially account
 access difficulties for the user.
 
+The Wrong-Sender POST provides a strong hint to the mailer that
+the address to which the message was sent was valid, and could in
+principle be used as a way to test whether an email address is valid.
+However, unlike passive methods like embedding tracking pixels, the
+mechanism proposed here takes an active user action. Nonetheless,
+MUAs ought only expose this Wrong Recipient option if relatively
+confident that the email is not spam, using signals such as a valid
+DMARC record and passing DKIM & SPF checks.
+
+A sender with a guessable URI structure and no use of either signed
+parameters or a UUID would open themselves up to a malicious party
+POST'ing email credentials for victims, potentially causing difficulty.
+Senders should be strongly encouraged to use a signature or opaque
+blob as suggested.
 
 # IANA Considerations
 
-IANA will be requested to add a new entry to the "Permanent Message Header Field
-Names" registry.
+IANA has been requested to add a new entry to the "Provisional Message Header Field
+Names" registry, to be made permanent if this proposal becomes a standard.
 
     Header field name: Wrong-Recipient
     Protocol: mail
@@ -181,6 +253,8 @@ Names" registry.
 # Acknowledgments
 {:numbered="false"}
 
-Many thanks to John Levine, Oliver Deighton, and Murray Kucherawy for their
-kind and actionable feedback on the language and proposal. Thanks to
+Many thanks to John Levine for helping shepherd this document as well
+as Oliver Deighton, and Murray Kucherawy for their kind and actionable
+feedback on the language and first draft of the proposal. Thanks to
 Eliot Lear for helping guide the draft to the right hands for review.
+Many thanks to the members of IETF ART for vigorous discussion thereof.
