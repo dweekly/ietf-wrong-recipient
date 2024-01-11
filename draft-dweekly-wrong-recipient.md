@@ -140,21 +140,32 @@ could inappropriately link the report to previous activity.
 
 The POST body MUST include only "Wrong-Recipient=true".
 
+If the response is a HTTP 500 type error indicating server issue, the
+client MAY retry. If the HTTP response to the POST is a 200, the client
+SHOULD NOT retry. No feedback to the user as to the success or failure
+of this operation is proposed or required.
+
 ## Mail Senders After Wrong Sender Notification
 
 When a misdelivery has been indicated by a POST to the HTTPS URI or
 email to the given mailto: URI, the sender MUST make a reasonable effort
 to cease emails to the indicated email address for that user account.
 
-The POST endpoint MUST NOT issue an HTTP redirect and should return a
+The POST endpoint MUST NOT issue an HTTP redirect and SHOULD return a
 200 OK status; the content body will be ignored.
 
-Any GET request to the same URI MUST be ignored, since anti-spam software
-may attempt a GET request to URIs mentioned in mail headers.
+Any GET request to the same URI MUST NOT be treated as an indication
+of a wrong recipient notification, since anti-spam software may attempt
+a GET request to URIs mentioned in mail headers without receiving user
+consent. Senders MAY return an error ``405 Method Not Allowed`` in
+response to a GET request to the URI.
 
 The sender SHOULD make a best effort to attempt to discern a correct
-email address for the user account. How the sender should accomplish
-this task is not part of this specification.
+email address for the user account, such as by using a different known
+email address for that user, postal mail, text message, phone call,
+app push, or presenting a notification in the user interface of the
+service. How the sender should accomplish this task is not part of
+this specification.
 
 # Additional Requirements
 
