@@ -152,7 +152,7 @@ email to the given mailto: URI, the sender MUST make a reasonable effort
 to cease emails to the indicated email address for that user account.
 
 The POST endpoint MUST NOT issue an HTTP redirect and SHOULD return a
-200 OK status; the content body will be ignored.
+``200 OK`` status; the content body will be ignored.
 
 Any GET request to the same URI MUST NOT be treated as an indication
 of a wrong recipient notification, since anti-spam software may attempt
@@ -265,7 +265,7 @@ Names" registry, to be made permanent if this proposal becomes a standard.
 {:numbered="false"}
 
 Many thanks to John Levine for helping shepherd this document as well
-as Oliver Deighton, and Murray Kucherawy for their kind and actionable
+as Oliver Deighton and Murray Kucherawy for their kind and actionable
 feedback on the language and first draft of the proposal. Thanks to
 Eliot Lear for helping guide the draft to the right hands for review.
 Many thanks to the members of IETF ART for vigorous discussion thereof.
