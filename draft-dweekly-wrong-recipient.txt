@@ -340,11 +340,11 @@ Wrong-Recipient:
 Acknowledgments
 
    Many thanks to John Levine for helping shepherd this document as well
-   as Oliver Deighton, and Murray Kucherawy for their kind and
-   actionable feedback on the language and first draft of the proposal.
-   Thanks to Eliot Lear for helping guide the draft to the right hands
-   for review.  Many thanks to the members of IETF ART for vigorous
-   discussion thereof.
+   as Oliver Deighton and Murray Kucherawy for their kind and actionable
+   feedback on the language and first draft of the proposal.  Thanks to
+   Eliot Lear for helping guide the draft to the right hands for review.
+   Many thanks to the members of IETF ART for vigorous discussion
+   thereof.
 
 Author's Address
 

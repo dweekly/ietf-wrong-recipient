@@ -1330,7 +1330,7 @@ of this operation is proposed or required.<a href="#section-6.2-5" class="pilcro
 email to the given mailto: URI, the sender <span class="bcp14">MUST</span> make a reasonable effort
 to cease emails to the indicated email address for that user account.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
 <p id="section-6.3-2">The POST endpoint <span class="bcp14">MUST NOT</span> issue an HTTP redirect and <span class="bcp14">SHOULD</span> return a
-200 OK status; the content body will be ignored.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
+<code>200 OK</code> status; the content body will be ignored.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
 <p id="section-6.3-3">Any GET request to the same URI <span class="bcp14">MUST NOT</span> be treated as an indication
 of a wrong recipient notification, since anti-spam software may attempt
 a GET request to URIs mentioned in mail headers without receiving user
@@ -1526,7 +1526,7 @@ Related information: none
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
 <p id="appendix-A-1">Many thanks to John Levine for helping shepherd this document as well
-as Oliver Deighton, and Murray Kucherawy for their kind and actionable
+as Oliver Deighton and Murray Kucherawy for their kind and actionable
 feedback on the language and first draft of the proposal. Thanks to
 Eliot Lear for helping guide the draft to the right hands for review.
 Many thanks to the members of IETF ART for vigorous discussion thereof.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
