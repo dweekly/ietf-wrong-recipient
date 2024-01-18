@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-16T00:30:25.094304+00:00",
+  "timestamp": "2024-01-18T00:30:21.873993+00:00",
   "repo": "dweekly/ietf-wrong-recipient",
   "labels": [
     {
@@ -128,6 +128,22 @@
           "updatedAt": "2024-01-11T01:05:02Z"
         }
       ]
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOK_NPes58Sjhi",
+      "title": "v03 Does Not Incorporate Specific Guidance On Signing",
+      "url": "https://github.com/dweekly/ietf-wrong-recipient/issues/4",
+      "state": "OPEN",
+      "author": "dweekly",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "The IETF draft commentators have noted that while the specification suggests signing the URL, it does not specify how. This was done deliberately, but this issue will be open to track further consideration of whether it would be helpful or not to offer guidance to implementors on suggestions for how to best sign URL parameters.",
+      "createdAt": "2024-01-17T01:43:08Z",
+      "updatedAt": "2024-01-17T01:43:08Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": []
