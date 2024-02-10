@@ -11,9 +11,7 @@ v: 3
 # area: AREA
 # workgroup: WG Working Group
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+ - email
 venue:
 #  group: WG
 #  type: Working Group
@@ -25,7 +23,6 @@ venue:
 author:
  -
     fullname: David Weekly
-    organization: Capital One
     email: david@weekly.org
 
 normative:
