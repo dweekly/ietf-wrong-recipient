@@ -31,6 +31,7 @@ informative:
   RFC8058:
   RFC7489:
   RFC2369:
+  RFC5322:
 
 --- abstract
 
@@ -173,6 +174,16 @@ content of the "d=" tag of a validated DKIM-Signature header field.
 
 The Wrong-Recipient header field needs to be included in the "h=" tag of a
 valid DKIM-Signature header field.
+
+# Header Syntax
+
+The following ABNF imports fields and WSP from [RFC5322] and URI from [RFC3986].
+Only https and mailto URIs are acceptable.
+
+fields =/ wrong-recipient
+
+wrong-recipient = "Wrong-Recipient:" 0*1WSP "<" URI ">" 0*WSP
+URI = *( %x21-7E)    ; As defined in RFC 3986
 
 # Examples
 
