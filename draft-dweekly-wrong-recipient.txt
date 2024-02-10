@@ -68,15 +68,16 @@ Table of Contents
      6.2.  Mail Recipients
      6.3.  Mail Senders After Wrong Sender Notification
    7.  Additional Requirements
-   8.  Examples
-     8.1.  Signed HTTPS URI
-     8.2.  UUID HTTPS URI
-     8.3.  Combined mailto: and HTTPS URIs
-   9.  Security Considerations
-   10. IANA Considerations
-   11. References
-     11.1.  Normative References
-     11.2.  Informative References
+   8.  Header Syntax
+   9.  Examples
+     9.1.  Signed HTTPS URI
+     9.2.  UUID HTTPS URI
+     9.3.  Combined mailto: and HTTPS URIs
+   10. Security Considerations
+   11. IANA Considerations
+   12. References
+     12.1.  Normative References
+     12.2.  Informative References
    Acknowledgments
    Author's Address
 
@@ -225,9 +226,19 @@ Table of Contents
    The Wrong-Recipient header field needs to be included in the "h=" tag
    of a valid DKIM-Signature header field.
 
-8.  Examples
+8.  Header Syntax
 
-8.1.  Signed HTTPS URI
+   The following ABNF imports fields and WSP from [RFC5322] and URI from
+   [RFC3986].  Only https and mailto URIs are acceptable.
+
+   fields =/ wrong-recipient
+
+   wrong-recipient = "Wrong-Recipient:" 0_1WSP "<" URI ">" 0_WSP URI =
+   *( %x21-7E) ; As defined in RFC 3986
+
+9.  Examples
+
+9.1.  Signed HTTPS URI
 
    Header in Email:
 
@@ -241,7 +252,7 @@ Content-Length: 20
 
 Wrong-Recipient=true
 
-8.2.  UUID HTTPS URI
+9.2.  UUID HTTPS URI
 
    Header in Email:
 
@@ -255,7 +266,7 @@ Content-Length: 20
 
 Wrong-Recipient=true
 
-8.3.  Combined mailto: and HTTPS URIs
+9.3.  Combined mailto: and HTTPS URIs
 
    Header in Email:
 
@@ -263,7 +274,7 @@ Wrong-Recipient:
     <https://example.com/wrong-recipient?uuid=c002bd9a-e015-468f-8621-9baf6fca12aa>,
     <mailto:wrong-recipient.c002bd9a-e015-468f-8621-9baf6fca12aa@example.org>
 
-9.  Security Considerations
+10.  Security Considerations
 
    The Wrong-Recipient header field may contain the recipient address,
    but that is already exposed in other header fields like To:.
@@ -294,7 +305,7 @@ Wrong-Recipient:
    difficulty.  Senders should be strongly encouraged to use a signature
    or opaque blob as suggested.
 
-10.  IANA Considerations
+11.  IANA Considerations
 
    IANA has been requested to add a new entry to the "Provisional
    Message Header Field Names" registry, to be made permanent if this
@@ -307,9 +318,9 @@ Wrong-Recipient:
    Specification document(s): *** This document ***
    Related information: none
 
-11.  References
+12.  References
 
-11.1.  Normative References
+12.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -320,12 +331,16 @@ Wrong-Recipient:
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-11.2.  Informative References
+12.2.  Informative References
 
    [RFC2369]  Neufeld, G. and J. Baer, "The Use of URLs as Meta-Syntax
               for Core Mail List Commands and their Transport through
               Message Header Fields", RFC 2369, DOI 10.17487/RFC2369,
               July 1998, <https://www.rfc-editor.org/rfc/rfc2369>.
+
+   [RFC5322]  Resnick, P., Ed., "Internet Message Format", RFC 5322,
+              DOI 10.17487/RFC5322, October 2008,
+              <https://www.rfc-editor.org/rfc/rfc5322>.
 
    [RFC7489]  Kucherawy, M., Ed. and E. Zwicky, Ed., "Domain-based
               Message Authentication, Reporting, and Conformance
