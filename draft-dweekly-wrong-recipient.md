@@ -32,6 +32,7 @@ informative:
   RFC7489:
   RFC2369:
   RFC5322:
+  RFC3986:
 
 --- abstract
 
@@ -180,10 +181,10 @@ valid DKIM-Signature header field.
 The following ABNF imports fields and WSP from [RFC5322] and URI from [RFC3986].
 Only https and mailto URIs are acceptable.
 
-fields =/ wrong-recipient
+    fields =/ wrong-recipient
 
-wrong-recipient = "Wrong-Recipient:" 0*1WSP "<" URI ">" 0*WSP
-URI = *( %x21-7E)    ; As defined in RFC 3986
+    wrong-recipient = "Wrong-Recipient:" 0*1WSP "<" URI ">" 0*WSP
+    URI = *( %x21-7E)    ; As defined in RFC 3986
 
 # Examples
 
