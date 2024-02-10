@@ -233,8 +233,8 @@ Table of Contents
 
    fields =/ wrong-recipient
 
-   wrong-recipient = "Wrong-Recipient:" 0_1WSP "<" URI ">" 0_WSP URI =
-   *( %x21-7E) ; As defined in RFC 3986
+   wrong-recipient = "Wrong-Recipient:" 0*1WSP "<" URI ">" 0*WSP
+   URI = *( %x21-7E)    ; As defined in RFC 3986
 
 9.  Examples
 
@@ -337,6 +337,11 @@ Wrong-Recipient:
               for Core Mail List Commands and their Transport through
               Message Header Fields", RFC 2369, DOI 10.17487/RFC2369,
               July 1998, <https://www.rfc-editor.org/rfc/rfc2369>.
+
+   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
+              Resource Identifier (URI): Generic Syntax", STD 66,
+              RFC 3986, DOI 10.17487/RFC3986, January 2005,
+              <https://www.rfc-editor.org/rfc/rfc3986>.
 
    [RFC5322]  Resnick, P., Ed., "Internet Message Format", RFC 5322,
               DOI 10.17487/RFC5322, October 2008,
