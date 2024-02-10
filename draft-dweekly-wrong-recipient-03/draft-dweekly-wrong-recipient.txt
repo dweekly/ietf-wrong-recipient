@@ -3,9 +3,9 @@
 
 
 Network Working Group                                          D. Weekly
-Internet-Draft                                               Capital One
-Intended status: Informational                           11 January 2024
-Expires: 14 July 2024
+Internet-Draft                                          10 February 2024
+Intended status: Informational                                          
+Expires: 13 August 2024
 
 
       Adding a Wrong Recipient URL for Handling Misdirected Emails
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 July 2024.
+   This Internet-Draft will expire on 13 August 2024.
 
 Copyright Notice
 
@@ -349,5 +349,4 @@ Acknowledgments
 Author's Address
 
    David Weekly
-   Capital One
    Email: david@weekly.org
