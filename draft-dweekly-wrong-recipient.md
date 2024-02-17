@@ -36,7 +36,6 @@ normative:
 
 informative:
   RFC8058:
-  RFC7489:
   RFC6376:
   RFC2369:
 
@@ -187,12 +186,13 @@ valid DKIM-Signature header field.
 # Header Syntax
 
 The following ABNF imports fields and WSP from [RFC5322] and URI from [RFC3986].
-An https URI, mailto URI, or one of each are permitted. Other URI protocols 
+An https URI, mailto URI, or one of each are permitted. Other URI protocols
 MUST NOT be used.
 
     fields =/ wrong-recipient
 
-    wrong-recipient = "Wrong-Recipient:" 0*1WSP "<" URI ">" *(0*1WSP "," 0*1WSP "<" URI ">") 0*WSP
+    wrong-recipient = "Wrong-Recipient:" 0*1WSP "<" URI ">"
+        *(0*1WSP "," 0*1WSP "<" URI ">") 0*WSP
 
 # Examples
 
@@ -200,7 +200,8 @@ MUST NOT be used.
 
 Header in Email:
 
-    Wrong-Recipient: <https://example.com/wrong-recipient?uid=12345&email=user@example.org&sig=a29c83d>
+    Wrong-Recipient: <https://example.com/wrong-recipient?
+        uid=12345&email=user@example.org&sig=a29c83d>
 
 Resulting POST request
 
@@ -214,7 +215,8 @@ Resulting POST request
 
 Header in Email:
 
-    Wrong-Recipient: <https://example.com/wrong-recipient?uuid=c002bd9a-e015-468f-8621-9baf6fca12aa>
+    Wrong-Recipient: <https://example.com/wrong-recipient?
+        uuid=c002bd9a-e015-468f-8621-9baf6fca12aa>
 
 Resulting POST request
 
@@ -229,8 +231,10 @@ Resulting POST request
 Header in Email:
 
     Wrong-Recipient:
-        <https://example.com/wrong-recipient?uuid=c002bd9a-e015-468f-8621-9baf6fca12aa>,
-        <mailto:wrong-recipient.c002bd9a-e015-468f-8621-9baf6fca12aa@example.org>
+        <https://example.com/wrong-recipient?
+            uuid=c002bd9a-e015-468f-8621-9baf6fca12aa>,
+        <mailto:wrong-recipient.c002bd9a-e015-468f-8621-9baf6fca12aa
+            @example.org>
 
 
 # Security Considerations
