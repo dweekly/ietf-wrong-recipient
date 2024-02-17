@@ -4,12 +4,14 @@ abbrev: "Wrong Recipient"
 category: info
 
 docname: draft-dweekly-wrong-recipient-latest
-submissiontype: independent  # also: "independent", "editorial", "IAB", or "IRTF"
+submissiontype: IETF
+cat: std
 number:
 date:
 v: 3
-# area: AREA
+area: ART
 # workgroup: WG Working Group
+consensus: false
 keyword:
  - email
 venue:
@@ -24,15 +26,19 @@ author:
  -
     fullname: David Weekly
     email: david@weekly.org
+    city: Redwood City
+    region: CA
+    country: US
 
 normative:
+  RFC3986:
+  RFC5322:
 
 informative:
   RFC8058:
   RFC7489:
+  RFC6376:
   RFC2369:
-  RFC5322:
-  RFC3986:
 
 --- abstract
 
@@ -51,7 +57,7 @@ is no standards-based mechanism to report a "wrong recipient" to the
 sender. Doing so is in the interest of all three involved parties: the
 inadvertent recipient (who does not want the email), the sender (who wants
 to be able to reach their customer and who does not want the liability of
-transmitting PII to a third party), and the valid recipient.
+transmitting PII to a third party), and the intended recipient.
 
 This document proposes a structured mechanism for the reporting of such
 misdirected email via either HTTPS POST or email inbox, directly mirroring
@@ -125,23 +131,23 @@ lookup to retrieve the email and user ID referenced.
 When a mail client receives an email that includes a Wrong-Recipient
 header field, an option SHOULD be exposed in the user interface that allows
 a recipient to indicate that the mail was intended for another user, if
-and only if the email is reasonably assured to not be spam, e.g. if both
-DKIM and SPF are passing with a valid DMARC record.
+and only if the email is reasonably assured to not be spam.
 
 If the user selects this option, the mail client MUST perform an
 HTTPS POST to the first https URI in the Wrong-Recipient header field,
 or send an empty message to the first referenced mailto: address.
 
-The POST request MUST NOT include cookies, HTTP authorization, or any
-other context information. The "wrong recipient" reporting operation is
-logically unrelated to any previous web activity, and context information
-could inappropriately link the report to previous activity.
+To minimize XSRF attacks, the POST request MUST NOT include cookies,
+HTTP authorization, or any other context information. The "wrong
+recipient" reporting operation is logically unrelated to any previous
+web activity, and context information could inappropriately link the
+report to previous activity.
 
 The POST body MUST include only "Wrong-Recipient=true".
 
 If the response is a HTTP 500 type error indicating server issue, the
 client MAY retry. If the HTTP response to the POST is a 200, the client
-SHOULD NOT retry. No feedback to the user as to the success or failure
+MUST NOT retry. No feedback to the user as to the success or failure
 of this operation is proposed or required.
 
 ## Mail Senders After Wrong Sender Notification
@@ -157,7 +163,9 @@ Any GET request to the same URI MUST NOT be treated as an indication
 of a wrong recipient notification, since anti-spam software may attempt
 a GET request to URIs mentioned in mail headers without receiving user
 consent. Senders MAY return an error ``405 Method Not Allowed`` in
-response to a GET request to the URI.
+response to a GET request to the URI. The sender MAY elect
+to present a page at this URI responsive to a GET request that
+presents the user with a form that allows them to submit the POST.
 
 The sender SHOULD make a best effort to attempt to discern a correct
 email address for the user account, such as by using a different known
@@ -170,7 +178,7 @@ this specification.
 
 The email needs at least one valid authentication identifier.  In
 this version of the specification the only supported identifier type
-is DKIM [RFC7489], that provides a domain-level identifier in the
+is DKIM [RFC6376], that provides a domain-level identifier in the
 content of the "d=" tag of a validated DKIM-Signature header field.
 
 The Wrong-Recipient header field needs to be included in the "h=" tag of a
@@ -179,12 +187,12 @@ valid DKIM-Signature header field.
 # Header Syntax
 
 The following ABNF imports fields and WSP from [RFC5322] and URI from [RFC3986].
-Only https and mailto URIs are acceptable.
+An https URI, mailto URI, or one of each are permitted. Other URI protocols 
+MUST NOT be used.
 
     fields =/ wrong-recipient
 
-    wrong-recipient = "Wrong-Recipient:" 0*1WSP "<" URI ">" 0*WSP
-    URI = *( %x21-7E)    ; As defined in RFC 3986
+    wrong-recipient = "Wrong-Recipient:" 0*1WSP "<" URI ">" *(0*1WSP "," 0*1WSP "<" URI ">") 0*WSP
 
 # Examples
 
@@ -244,21 +252,23 @@ access difficulties for the user.
 The Wrong-Sender POST provides a strong hint to the mailer that
 the address to which the message was sent was valid, and could in
 principle be used as a way to test whether an email address is valid.
+It also may expose the recipient's location and ISP via IP address.
 However, unlike passive methods like embedding tracking pixels, the
 mechanism proposed here takes an active user action. Nonetheless,
 MUAs ought only expose this Wrong Recipient option if relatively
-confident that the email is not spam, using signals such as a valid
-DMARC record and passing DKIM & SPF checks.
+confident that the email is not spam.
 
 A sender with a guessable URI structure and no use of either signed
 parameters or a UUID would open themselves up to a malicious party
 POST'ing email credentials for victims, potentially causing difficulty.
 Senders should be strongly encouraged to use a signature or opaque
-blob as suggested.
+blob as suggested. No algorithm for creating such a signature or
+opaque blob is included in this standard since only the sender needs
+to validate the correctness of the hard-to-forge URL.
 
 # IANA Considerations
 
-IANA has been requested to add a new entry to the "Provisional Message Header Field
+IANA has registered a new entry to the "Provisional Message Header Field
 Names" registry, to be made permanent if this proposal becomes a standard.
 
     Header field name: Wrong-Recipient
@@ -277,4 +287,6 @@ Many thanks to John Levine for helping shepherd this document as well
 as Oliver Deighton and Murray Kucherawy for their kind and actionable
 feedback on the language and first draft of the proposal. Thanks to
 Eliot Lear for helping guide the draft to the right hands for review.
-Many thanks to the members of IETF ART for vigorous discussion thereof.
+A detailed review by Jim Fenton was much appreciated and caught a number
+of key issues. Many thanks to the members of IETF ART for vigorous
+discussion thereof.
