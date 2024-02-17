@@ -1030,7 +1030,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Weekly</td>
-<td class="center">Expires 13 August 2024</td>
+<td class="center">Expires 20 August 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1043,12 +1043,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-dweekly-wrong-recipient-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-02-10" class="published">10 February 2024</time>
+<time datetime="2024-02-17" class="published">17 February 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
-<dd class="intended-status">Informational</dd>
+<dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-08-13">13 August 2024</time></dd>
+<dd class="expires"><time datetime="2024-08-20">20 August 2024</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1093,7 +1093,7 @@ sender that they are not the intended recipient.<a href="#section-abstract-1" cl
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 13 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 20 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1110,7 +1110,10 @@ sender that they are not the intended recipient.<a href="#section-abstract-1" cl
             (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
             publication of this document. Please review these documents
             carefully, as they describe your rights and restrictions with
-            respect to this document.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+            respect to this document. Code Components extracted from this
+            document must include Revised BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Revised BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="toc">
@@ -1208,7 +1211,7 @@ is no standards-based mechanism to report a "wrong recipient" to the
 sender. Doing so is in the interest of all three involved parties: the
 inadvertent recipient (who does not want the email), the sender (who wants
 to be able to reach their customer and who does not want the liability of
-transmitting PII to a third party), and the valid recipient.<a href="#section-1-1" class="pilcrow">¶</a></p>
+transmitting PII to a third party), and the intended recipient.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">This document proposes a structured mechanism for the reporting of such
 misdirected email via either HTTPS POST or email inbox, directly mirroring
 the List-Unsubscribe and List-Unsubscribe-Post mechanisms of <span>[<a href="#RFC2369" class="cite xref">RFC2369</a>]</span> and
@@ -1305,19 +1308,19 @@ lookup to retrieve the email and user ID referenced.<a href="#section-6.1-3" cla
 <p id="section-6.2-1">When a mail client receives an email that includes a Wrong-Recipient
 header field, an option <span class="bcp14">SHOULD</span> be exposed in the user interface that allows
 a recipient to indicate that the mail was intended for another user, if
-and only if the email is reasonably assured to not be spam, e.g. if both
-DKIM and SPF are passing with a valid DMARC record.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+and only if the email is reasonably assured to not be spam.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <p id="section-6.2-2">If the user selects this option, the mail client <span class="bcp14">MUST</span> perform an
 HTTPS POST to the first https URI in the Wrong-Recipient header field,
 or send an empty message to the first referenced mailto: address.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
-<p id="section-6.2-3">The POST request <span class="bcp14">MUST NOT</span> include cookies, HTTP authorization, or any
-other context information. The "wrong recipient" reporting operation is
-logically unrelated to any previous web activity, and context information
-could inappropriately link the report to previous activity.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
+<p id="section-6.2-3">To minimize XSRF attacks, the POST request <span class="bcp14">MUST NOT</span> include cookies,
+HTTP authorization, or any other context information. The "wrong
+recipient" reporting operation is logically unrelated to any previous
+web activity, and context information could inappropriately link the
+report to previous activity.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
 <p id="section-6.2-4">The POST body <span class="bcp14">MUST</span> include only "Wrong-Recipient=true".<a href="#section-6.2-4" class="pilcrow">¶</a></p>
 <p id="section-6.2-5">If the response is a HTTP 500 type error indicating server issue, the
 client <span class="bcp14">MAY</span> retry. If the HTTP response to the POST is a 200, the client
-<span class="bcp14">SHOULD NOT</span> retry. No feedback to the user as to the success or failure
+<span class="bcp14">MUST NOT</span> retry. No feedback to the user as to the success or failure
 of this operation is proposed or required.<a href="#section-6.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1335,7 +1338,9 @@ to cease emails to the indicated email address for that user account.<a href="#s
 of a wrong recipient notification, since anti-spam software may attempt
 a GET request to URIs mentioned in mail headers without receiving user
 consent. Senders <span class="bcp14">MAY</span> return an error <code>405 Method Not Allowed</code> in
-response to a GET request to the URI.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
+response to a GET request to the URI. The sender <span class="bcp14">MAY</span> elect
+to present a page at this URI responsive to a GET request that
+presents the user with a form that allows them to submit the POST.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
 <p id="section-6.3-4">The sender <span class="bcp14">SHOULD</span> make a best effort to attempt to discern a correct
 email address for the user account, such as by using a different known
 email address for that user, postal mail, text message, phone call,
@@ -1353,7 +1358,7 @@ this specification.<a href="#section-6.3-4" class="pilcrow">¶</a></p>
       </h2>
 <p id="section-7-1">The email needs at least one valid authentication identifier.  In
 this version of the specification the only supported identifier type
-is DKIM <span>[<a href="#RFC7489" class="cite xref">RFC7489</a>]</span>, that provides a domain-level identifier in the
+is DKIM <span>[<a href="#RFC6376" class="cite xref">RFC6376</a>]</span>, that provides a domain-level identifier in the
 content of the "d=" tag of a validated DKIM-Signature header field.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <p id="section-7-2">The Wrong-Recipient header field needs to be included in the "h=" tag of a
 valid DKIM-Signature header field.<a href="#section-7-2" class="pilcrow">¶</a></p>
@@ -1365,13 +1370,14 @@ valid DKIM-Signature header field.<a href="#section-7-2" class="pilcrow">¶</a><
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-header-syntax" class="section-name selfRef">Header Syntax</a>
       </h2>
 <p id="section-8-1">The following ABNF imports fields and WSP from <span>[<a href="#RFC5322" class="cite xref">RFC5322</a>]</span> and URI from <span>[<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>.
-Only https and mailto URIs are acceptable.<a href="#section-8-1" class="pilcrow">¶</a></p>
+An https URI, mailto URI, or one of each are permitted. Other URI protocols
+<span class="bcp14">MUST NOT</span> be used.<a href="#section-8-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-8-2">
 <pre>
 fields =/ wrong-recipient
 
-wrong-recipient = "Wrong-Recipient:" 0*1WSP "&lt;" URI "&gt;" 0*WSP
-URI = *( %x21-7E)    ; As defined in RFC 3986
+wrong-recipient = "Wrong-Recipient:" 0*1WSP "&lt;" URI "&gt;"
+    *(0*1WSP "," 0*1WSP "&lt;" URI "&gt;") 0*WSP
 </pre><a href="#section-8-2" class="pilcrow">¶</a>
 </div>
 </section>
@@ -1389,7 +1395,8 @@ URI = *( %x21-7E)    ; As defined in RFC 3986
 <p id="section-9.1-1">Header in Email:<a href="#section-9.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-9.1-2">
 <pre>
-Wrong-Recipient: &lt;https://example.com/wrong-recipient?uid=12345&amp;email=user@example.org&amp;sig=a29c83d&gt;
+Wrong-Recipient: &lt;https://example.com/wrong-recipient?
+    uid=12345&amp;email=user@example.org&amp;sig=a29c83d&gt;
 </pre><a href="#section-9.1-2" class="pilcrow">¶</a>
 </div>
 <p id="section-9.1-3">Resulting POST request<a href="#section-9.1-3" class="pilcrow">¶</a></p>
@@ -1412,7 +1419,8 @@ Wrong-Recipient=true
 <p id="section-9.2-1">Header in Email:<a href="#section-9.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-9.2-2">
 <pre>
-Wrong-Recipient: &lt;https://example.com/wrong-recipient?uuid=c002bd9a-e015-468f-8621-9baf6fca12aa&gt;
+Wrong-Recipient: &lt;https://example.com/wrong-recipient?
+    uuid=c002bd9a-e015-468f-8621-9baf6fca12aa&gt;
 </pre><a href="#section-9.2-2" class="pilcrow">¶</a>
 </div>
 <p id="section-9.2-3">Resulting POST request<a href="#section-9.2-3" class="pilcrow">¶</a></p>
@@ -1436,8 +1444,10 @@ Wrong-Recipient=true
 <div class="alignLeft art-text artwork" id="section-9.3-2">
 <pre>
 Wrong-Recipient:
-    &lt;https://example.com/wrong-recipient?uuid=c002bd9a-e015-468f-8621-9baf6fca12aa&gt;,
-    &lt;mailto:wrong-recipient.c002bd9a-e015-468f-8621-9baf6fca12aa@example.org&gt;
+    &lt;https://example.com/wrong-recipient?
+        uuid=c002bd9a-e015-468f-8621-9baf6fca12aa&gt;,
+    &lt;mailto:wrong-recipient.c002bd9a-e015-468f-8621-9baf6fca12aa
+        @example.org&gt;
 </pre><a href="#section-9.3-2" class="pilcrow">¶</a>
 </div>
 </section>
@@ -1463,16 +1473,18 @@ access difficulties for the user.<a href="#section-10-3" class="pilcrow">¶</a><
 <p id="section-10-4">The Wrong-Sender POST provides a strong hint to the mailer that
 the address to which the message was sent was valid, and could in
 principle be used as a way to test whether an email address is valid.
+It also may expose the recipient's location and ISP via IP address.
 However, unlike passive methods like embedding tracking pixels, the
 mechanism proposed here takes an active user action. Nonetheless,
 MUAs ought only expose this Wrong Recipient option if relatively
-confident that the email is not spam, using signals such as a valid
-DMARC record and passing DKIM &amp; SPF checks.<a href="#section-10-4" class="pilcrow">¶</a></p>
+confident that the email is not spam.<a href="#section-10-4" class="pilcrow">¶</a></p>
 <p id="section-10-5">A sender with a guessable URI structure and no use of either signed
 parameters or a UUID would open themselves up to a malicious party
 POST'ing email credentials for victims, potentially causing difficulty.
 Senders should be strongly encouraged to use a signature or opaque
-blob as suggested.<a href="#section-10-5" class="pilcrow">¶</a></p>
+blob as suggested. No algorithm for creating such a signature or
+opaque blob is included in this standard since only the sender needs
+to validate the correctness of the hard-to-forge URL.<a href="#section-10-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -1480,7 +1492,7 @@ blob as suggested.<a href="#section-10-5" class="pilcrow">¶</a></p>
       <h2 id="name-iana-considerations">
 <a href="#section-11" class="section-number selfRef">11. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-11-1">IANA has been requested to add a new entry to the "Provisional Message Header Field
+<p id="section-11-1">IANA has registered a new entry to the "Provisional Message Header Field
 Names" registry, to be made permanent if this proposal becomes a standard.<a href="#section-11-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-11-2">
 <pre>
@@ -1508,6 +1520,14 @@ Related information: none
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC3986">[RFC3986]</dt>
+        <dd>
+<span class="refAuthor">Berners-Lee, T.</span>, <span class="refAuthor">Fielding, R.</span>, and <span class="refAuthor">L. Masinter</span>, <span class="refTitle">"Uniform Resource Identifier (URI): Generic Syntax"</span>, <span class="seriesInfo">STD 66</span>, <span class="seriesInfo">RFC 3986</span>, <span class="seriesInfo">DOI 10.17487/RFC3986</span>, <time datetime="2005-01" class="refDate">January 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3986">https://www.rfc-editor.org/rfc/rfc3986</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5322">[RFC5322]</dt>
+        <dd>
+<span class="refAuthor">Resnick, P., Ed.</span>, <span class="refTitle">"Internet Message Format"</span>, <span class="seriesInfo">RFC 5322</span>, <span class="seriesInfo">DOI 10.17487/RFC5322</span>, <time datetime="2008-10" class="refDate">October 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5322">https://www.rfc-editor.org/rfc/rfc5322</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
       <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
@@ -1525,17 +1545,9 @@ Related information: none
         <dd>
 <span class="refAuthor">Neufeld, G.</span> and <span class="refAuthor">J. Baer</span>, <span class="refTitle">"The Use of URLs as Meta-Syntax for Core Mail List Commands and their Transport through Message Header Fields"</span>, <span class="seriesInfo">RFC 2369</span>, <span class="seriesInfo">DOI 10.17487/RFC2369</span>, <time datetime="1998-07" class="refDate">July 1998</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2369">https://www.rfc-editor.org/rfc/rfc2369</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC3986">[RFC3986]</dt>
+<dt id="RFC6376">[RFC6376]</dt>
         <dd>
-<span class="refAuthor">Berners-Lee, T.</span>, <span class="refAuthor">Fielding, R.</span>, and <span class="refAuthor">L. Masinter</span>, <span class="refTitle">"Uniform Resource Identifier (URI): Generic Syntax"</span>, <span class="seriesInfo">STD 66</span>, <span class="seriesInfo">RFC 3986</span>, <span class="seriesInfo">DOI 10.17487/RFC3986</span>, <time datetime="2005-01" class="refDate">January 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3986">https://www.rfc-editor.org/rfc/rfc3986</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC5322">[RFC5322]</dt>
-        <dd>
-<span class="refAuthor">Resnick, P., Ed.</span>, <span class="refTitle">"Internet Message Format"</span>, <span class="seriesInfo">RFC 5322</span>, <span class="seriesInfo">DOI 10.17487/RFC5322</span>, <time datetime="2008-10" class="refDate">October 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5322">https://www.rfc-editor.org/rfc/rfc5322</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC7489">[RFC7489]</dt>
-        <dd>
-<span class="refAuthor">Kucherawy, M., Ed.</span> and <span class="refAuthor">E. Zwicky, Ed.</span>, <span class="refTitle">"Domain-based Message Authentication, Reporting, and Conformance (DMARC)"</span>, <span class="seriesInfo">RFC 7489</span>, <span class="seriesInfo">DOI 10.17487/RFC7489</span>, <time datetime="2015-03" class="refDate">March 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7489">https://www.rfc-editor.org/rfc/rfc7489</a>&gt;</span>. </dd>
+<span class="refAuthor">Crocker, D., Ed.</span>, <span class="refAuthor">Hansen, T., Ed.</span>, and <span class="refAuthor">M. Kucherawy, Ed.</span>, <span class="refTitle">"DomainKeys Identified Mail (DKIM) Signatures"</span>, <span class="seriesInfo">STD 76</span>, <span class="seriesInfo">RFC 6376</span>, <span class="seriesInfo">DOI 10.17487/RFC6376</span>, <time datetime="2011-09" class="refDate">September 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6376">https://www.rfc-editor.org/rfc/rfc6376</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8058">[RFC8058]</dt>
       <dd>
@@ -1554,7 +1566,9 @@ Related information: none
 as Oliver Deighton and Murray Kucherawy for their kind and actionable
 feedback on the language and first draft of the proposal. Thanks to
 Eliot Lear for helping guide the draft to the right hands for review.
-Many thanks to the members of IETF ART for vigorous discussion thereof.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+A detailed review by Jim Fenton was much appreciated and caught a number
+of key issues. Many thanks to the members of IETF ART for vigorous
+discussion thereof.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
@@ -1564,6 +1578,9 @@ Many thanks to the members of IETF ART for vigorous discussion thereof.<a href="
       </h2>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">David Weekly</span></div>
+<div dir="auto" class="left">
+<span class="locality">Redwood City</span>, <span class="region">CA</span> </div>
+<div dir="auto" class="left"><span class="country-name">United States of America</span></div>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:david@weekly.org" class="email">david@weekly.org</a>
