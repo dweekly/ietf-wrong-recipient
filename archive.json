@@ -1,0 +1,150 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2024-05-09T00:30:27.534968+00:00",
+  "repo": "dweekly/ietf-wrong-recipient",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOK_NPes57LB3U",
+      "title": "v01 Proposal Does Not Support SMTP-only MUAs",
+      "url": "https://github.com/dweekly/ietf-wrong-recipient/issues/1",
+      "state": "CLOSED",
+      "author": "dweekly",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "CONCERN: What about MUAs that only support SMTP? I don\u2019t want my mail client to have to perform HTTPS POSTs and the user might be offline - batching SMTP messages for offline is something all MUAs need to support but batching POST requests for offline is unnatural.\r\n\r\nRESPONSE: The proposal should be updated to allow for an optional mailto: URI to follow the https: URI so that offline and/or non-HTTPS capable clients can transmit to this email inbox to mark an email as misdelivered.",
+      "createdAt": "2024-01-04T23:27:39Z",
+      "updatedAt": "2024-01-11T01:04:43Z",
+      "closedAt": "2024-01-11T01:04:42Z",
+      "comments": [
+        {
+          "author": "dweekly",
+          "authorAssociation": "OWNER",
+          "body": "Closed, added mailto: URI as option in v02 release.",
+          "createdAt": "2024-01-11T01:04:42Z",
+          "updatedAt": "2024-01-11T01:04:42Z"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "I_kwDOK_NPes57LCqv",
+      "title": "v01 Has Security Concerns around POSTing to a Random Attacker-Controlled URL",
+      "url": "https://github.com/dweekly/ietf-wrong-recipient/issues/2",
+      "state": "CLOSED",
+      "author": "dweekly",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "CONCERN: Getting a user to visit a random URL poses security concerns; what if I make it look like it\u2019s an email addressed to a (wrong) John Doe from a typo-misspelling of a popular service in order to convince the user to POST to this URL?\r\n\r\nRESPONSE: This is a valid concern, especially if the user\u2019s web user-agent were to include cookies that could cause a privileged action to be executed on the user\u2019s behalf. The proposal should be updated to:\r\n\r\n- An MUA MUST NOT include any session cookies in the POST. Note RFC 8058's language: \"the request MUST NOT\r\n   include cookies or other context information to prevent the server from associating the request with previous web requests.\"\r\n- The POST MUST include only a specific key-value pair, such as \"Wrong-Recipient=true\". The standard should specify this pair, similar to RFC 8058.\r\n- The UI for Wrong Recipient notification should ideally only be presented by a mail client when the message is highly confident to be \"not spam\", e.g. passes DKIM & SPF checks.",
+      "createdAt": "2024-01-04T23:32:17Z",
+      "updatedAt": "2024-01-11T01:05:24Z",
+      "closedAt": "2024-01-11T01:05:24Z",
+      "comments": [
+        {
+          "author": "dweekly",
+          "authorAssociation": "OWNER",
+          "body": "Closed with edits incorporated into v02 release.",
+          "createdAt": "2024-01-11T01:05:24Z",
+          "updatedAt": "2024-01-11T01:05:24Z"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOK_NPes57LFRx",
+      "title": "v01 Proposal Would Allow Guessable Wrong-Recipient URL Structure",
+      "url": "https://github.com/dweekly/ietf-wrong-recipient/issues/3",
+      "state": "CLOSED",
+      "author": "dweekly",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "CONCERN: If an attacker knows the structure of the URL used for POST'ing a wrong-recipient notification, the attacker can directly POST to this endpoint for victim email addresses  to cause problems for them. For example, if a service uses a URL structure of https://example.org/wrong-recipient?email=user@example.com then the attacker can POST to this uncredentialed endpoint any email address thought to be associated with the service.\r\n\r\nRESPONSE: The sender should be strongly encouraged to use either a signature for the email address _and_ the user ID at the service (since the email address may be associated correctly with a different user ID) using a key known only to the service or to just use an opaque identifier such as a UUID and to have a lookup table local to the service, such as WrongRecipientTable(uuid, email, user_id, when_sent) that it can use to map a POST to a validly transmitted email. Both approaches will make it difficult for an attacker to brute force a valid wrong-recipient request.\r\n\r\nSigned Example: https://example.org/wrong-recipient?email=user@example.com&uid=12345&sig=a052cd92\r\nUUID Example: https://example.org/wrong-recipient?req=c002bd9a-e015-468f-8621-9baf6fca12aa",
+      "createdAt": "2024-01-04T23:44:20Z",
+      "updatedAt": "2024-01-11T01:05:02Z",
+      "closedAt": "2024-01-11T01:05:02Z",
+      "comments": [
+        {
+          "author": "dweekly",
+          "authorAssociation": "OWNER",
+          "body": "Note that in the case of a mailto: URI, as suggested by #1, the inbox address ought to similarly encode this information to avoid the same problem. For instance mailto:c002bd9a-e015-468f-8621-9baf6fca12aa@wrong-recipient.example.org ",
+          "createdAt": "2024-01-04T23:47:13Z",
+          "updatedAt": "2024-01-04T23:47:13Z"
+        },
+        {
+          "author": "dweekly",
+          "authorAssociation": "OWNER",
+          "body": "Closed with mandated opaque or signed URI in v02.",
+          "createdAt": "2024-01-11T01:05:02Z",
+          "updatedAt": "2024-01-11T01:05:02Z"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOK_NPes58Sjhi",
+      "title": "v03 Does Not Incorporate Specific Guidance On Signing",
+      "url": "https://github.com/dweekly/ietf-wrong-recipient/issues/4",
+      "state": "OPEN",
+      "author": "dweekly",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "The IETF draft commentators have noted that while the specification suggests signing the URL, it does not specify how. This was done deliberately, but this issue will be open to track further consideration of whether it would be helpful or not to offer guidance to implementors on suggestions for how to best sign URL parameters.",
+      "createdAt": "2024-01-17T01:43:08Z",
+      "updatedAt": "2024-01-17T01:43:08Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": []
+}
