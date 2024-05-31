@@ -203,7 +203,7 @@ Header in Email:
     Wrong-Recipient: <https://example.com/wrong-recipient?
         uid=12345&email=user@example.org&sig=a29c83d>
 
-Resulting POST request
+Resulting POST request:
 
     POST /wrong-recipient?uid=12345&email=user@example.org&sig=a29c83d HTTP/1.1
     Host: example.com
@@ -218,7 +218,7 @@ Header in Email:
     Wrong-Recipient: <https://example.com/wrong-recipient?
         uuid=c002bd9a-e015-468f-8621-9baf6fca12aa>
 
-Resulting POST request
+Resulting POST request:
 
     POST /wrong-recipient?uuid=c002bd9a-e015-468f-8621-9baf6fca12aa HTTP/1.1
     Host: example.com
@@ -240,7 +240,7 @@ Header in Email:
 # Security Considerations
 
 The Wrong-Recipient header field may contain the recipient address, but
-that is already exposed in other header fields like To:.
+that is already exposed in other header fields like To.
 
 The user ID of the recipient with the sending service may be exposed
 by the Wrong-Recipient URI, which may not be desired but a sender
@@ -253,7 +253,7 @@ indicate the recipient was a Wrong Recipient with any services that
 used this protocol, causing mail delivery and potentially account
 access difficulties for the user.
 
-The Wrong-Sender POST provides a strong hint to the mailer that
+The Wrong-Recipient POST provides a strong hint to the mailer that
 the address to which the message was sent was valid, and could in
 principle be used as a way to test whether an email address is valid.
 It also may expose the recipient's location and ISP via IP address.
