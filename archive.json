@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-30T00:31:19.673258+00:00",
+  "timestamp": "2024-06-02T00:34:05.285140+00:00",
   "repo": "dweekly/ietf-wrong-recipient",
   "labels": [
     {
@@ -146,5 +146,48 @@
       "comments": []
     }
   ],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 5,
+      "id": "PR_kwDOK_NPes5xIwq_",
+      "title": "Minor fixes",
+      "url": "https://github.com/dweekly/ietf-wrong-recipient/pull/5",
+      "state": "MERGED",
+      "author": "thgoebel",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR fixes some minor things I noticed while reading draft-05.\r\nNice document, straightforward and very well readable!",
+      "createdAt": "2024-05-31T14:48:19Z",
+      "updatedAt": "2024-05-31T15:02:15Z",
+      "baseRepository": "dweekly/ietf-wrong-recipient",
+      "baseRefName": "main",
+      "baseRefOid": "ad171425044c2c35463ecb7cba5ba50604f8effe",
+      "headRepository": "thgoebel/ietf-wrong-recipient",
+      "headRefName": "minor-fixes",
+      "headRefOid": "9137eac133083a17f78885bd2de48265df34dab4",
+      "closedAt": "2024-05-31T14:55:24Z",
+      "mergedAt": "2024-05-31T14:55:24Z",
+      "mergedBy": "dweekly",
+      "mergeCommit": {
+        "oid": "b18b87e15001d45649c06bf5f616b18cc6690c6c"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOK_NPes58ovGx",
+          "commit": {
+            "abbreviatedOid": "9137eac"
+          },
+          "author": "dweekly",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "Thanks!",
+          "createdAt": "2024-05-31T14:51:24Z",
+          "updatedAt": "2024-05-31T14:51:24Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
 }
