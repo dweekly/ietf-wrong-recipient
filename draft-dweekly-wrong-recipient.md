@@ -1,4 +1,5 @@
 ---
+
 title: "Adding a Wrong Recipient URL for Handling Misdirected Emails"
 abbrev: "Wrong Recipient"
 category: info
@@ -10,34 +11,42 @@ number:
 date:
 v: 3
 area: ART
+
 # workgroup: WG Working Group
+
 consensus: false
 keyword:
- - email
-venue:
-#  group: WG
-#  type: Working Group
-#  mail: WG@example.com
-#  arch: https://example.com/WG
-  github: "dweekly/ietf-wrong-recipient"
-  latest: "https://dweekly.github.io/ietf-wrong-recipient/draft-dweekly-wrong-recipient.html"
+
+- email
+  venue:
+
+# group: WG
+
+# type: Working Group
+
+# mail: WG@example.com
+
+# arch: https://example.com/WG
+
+github: "dweekly/ietf-wrong-recipient"
+latest: "https://dweekly.github.io/ietf-wrong-recipient/draft-dweekly-wrong-recipient.html"
 
 author:
- -
-    fullname: David Weekly
-    email: david@weekly.org
-    city: Redwood City
-    region: CA
-    country: US
+
+- fullname: David Weekly
+  email: david@weekly.org
+  city: Redwood City
+  region: CA
+  country: US
 
 normative:
-  RFC3986:
-  RFC5322:
+RFC3986:
+RFC5322:
 
 informative:
-  RFC8058:
-  RFC6376:
-  RFC2369:
+RFC8058:
+RFC6376:
+RFC2369:
 
 --- abstract
 
@@ -58,23 +67,32 @@ inadvertent recipient (who does not want the email), the sender (who wants
 to be able to reach their customer and who does not want the liability of
 transmitting PII to a third party), and the intended recipient.
 
-This document proposes a structured mechanism for the reporting of such
+This document specifies a structured mechanism for the reporting of such
 misdirected email via either HTTPS POST or email inbox, directly mirroring
 the List-Unsubscribe and List-Unsubscribe-Post mechanisms of [RFC2369] and
 [RFC8058] respectively.
 
 # Proposal
 
-There ought be a mechanism whereby a service can indicate
-it has an endpoint to indicate a "wrong recipient" of an email. If this
-header field is present in an email message, the user can select an option to
-indicate that they are not the intended recipient.
+The the Wrong-Recipient header field is present in an email message,
+and the message is determined to likely not be spam,
+the user can select an option to
+indicate that they are not the intended recipient,
+and the sender is notified.
 
 Similar to one-click unsubscription [RFC8058], the mail service can
-perform this action in the background as an HTTPS POST to the provided
+perform this action in the background as an HTTPS POST to a provided
 URL without requiring the user's further attention to the matter. A
 mailto: URI may also be included for non-HTTP MUAs, akin to List-Unsubscribe
 from [RFC2369].
+
+For example of when this might be used, suppose a cable TV provider enrolls
+a new subscriber over the phone. The agent enrolling the customer may
+accidentally enter the wrong email address for their customer. A month
+later, the provider sends a bill to this email address, which may be valid
+but belongs to the wrong person. The mechanism described here gives the
+inadvertent recipient a mechanism to notify the provider that they need to
+update their records.
 
 Since it's possible the user may have a separate valid account with the
 sending service, it may be important that the sender be able to tie
@@ -156,12 +174,12 @@ email to the given mailto: URI, the sender MUST make a reasonable effort
 to cease emails to the indicated email address for that user account.
 
 The POST endpoint MUST NOT issue an HTTP redirect and SHOULD return a
-``200 OK`` status; the content body will be ignored.
+`200 OK` status; the content body will be ignored.
 
 Any GET request to the same URI MUST NOT be treated as an indication
 of a wrong recipient notification, since anti-spam software may attempt
 a GET request to URIs mentioned in mail headers without receiving user
-consent. Senders MAY return an error ``405 Method Not Allowed`` in
+consent. Senders MAY return an error `405 Method Not Allowed` in
 response to a GET request to the URI. The sender MAY elect
 to present a page at this URI responsive to a GET request that
 presents the user with a form that allows them to submit the POST.
@@ -175,7 +193,7 @@ this specification.
 
 # Additional Requirements
 
-The email needs at least one valid authentication identifier.  In
+The email needs at least one valid authentication identifier. In
 this version of the specification the only supported identifier type
 is DKIM [RFC6376], that provides a domain-level identifier in the
 content of the "d=" tag of a validated DKIM-Signature header field.
@@ -236,7 +254,6 @@ Header in Email:
         <mailto:wrong-recipient.c002bd9a-e015-468f-8621-9baf6fca12aa
             @example.org>
 
-
 # Security Considerations
 
 The Wrong-Recipient header field may contain the recipient address, but
@@ -285,6 +302,7 @@ Names" registry, to be made permanent if this proposal becomes a standard.
 --- back
 
 # Acknowledgments
+
 {:numbered="false"}
 
 Many thanks to John Levine for helping shepherd this document as well
@@ -293,4 +311,5 @@ feedback on the language and first draft of the proposal. Thanks to
 Eliot Lear for helping guide the draft to the right hands for review.
 A detailed review by Jim Fenton was much appreciated and caught a number
 of key issues. Many thanks to the members of IETF ART for vigorous
-discussion thereof.
+discussion thereof and for feedback from the new MAILMAINT working group
+chaired by Ken Murchison.
