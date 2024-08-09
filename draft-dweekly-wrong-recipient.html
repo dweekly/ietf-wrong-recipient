@@ -1125,7 +1125,7 @@ sender that they are not the intended recipient.<a href="#section-abstract-1" cl
             <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
-            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-proposal" class="internal xref">Proposal</a></p>
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-description" class="internal xref">Description</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
             <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
@@ -1211,33 +1211,40 @@ sender. Doing so is in the interest of all three involved parties: the
 inadvertent recipient (who does not want the email), the sender (who wants
 to be able to reach their customer and who does not want the liability of
 transmitting PII to a third party), and the intended recipient.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">This document proposes a structured mechanism for the reporting of such
+<p id="section-1-2">This document specifies a structured mechanism for the reporting of such
 misdirected email via either HTTPS POST or email inbox, directly mirroring
 the List-Unsubscribe and List-Unsubscribe-Post mechanisms of <span>[<a href="#RFC2369" class="cite xref">RFC2369</a>]</span> and
 <span>[<a href="#RFC8058" class="cite xref">RFC8058</a>]</span> respectively.<a href="#section-1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="proposal">
+<div id="description">
 <section id="section-2">
-      <h2 id="name-proposal">
-<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-proposal" class="section-name selfRef">Proposal</a>
+      <h2 id="name-description">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-description" class="section-name selfRef">Description</a>
       </h2>
-<p id="section-2-1">There ought be a mechanism whereby a service can indicate
-it has an endpoint to indicate a "wrong recipient" of an email. If this
-header field is present in an email message, the user can select an option to
-indicate that they are not the intended recipient.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-1">If the Wrong-Recipient header field is present in an email message,
+and the message is determined to likely not be spam, the user can select
+an option to indicate that they are not the intended recipient, and the
+sender is notified.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <p id="section-2-2">Similar to one-click unsubscription <span>[<a href="#RFC8058" class="cite xref">RFC8058</a>]</span>, the mail service can
-perform this action in the background as an HTTPS POST to the provided
+perform this action in the background as an HTTPS POST to a provided
 URL without requiring the user's further attention to the matter. A
 mailto: URI may also be included for non-HTTP MUAs, akin to List-Unsubscribe
 from <span>[<a href="#RFC2369" class="cite xref">RFC2369</a>]</span>.<a href="#section-2-2" class="pilcrow">¶</a></p>
-<p id="section-2-3">Since it's possible the user may have a separate valid account with the
+<p id="section-2-3">For example of when this might be used, suppose a cable TV provider enrolls
+a new subscriber over the phone. The agent enrolling the customer may
+accidentally enter the wrong email address for their customer. A month
+later, the provider sends a bill to this email address, which may be valid
+but belongs to the wrong person. The mechanism described here gives the
+inadvertent recipient a mechanism to notify the provider that they need to
+update their records.<a href="#section-2-3" class="pilcrow">¶</a></p>
+<p id="section-2-4">Since it's possible the user may have a separate valid account with the
 sending service, it may be important that the sender be able to tie
 <em>which</em> email was sent to the wrong recipient. For this reason, the
 sender may also include an opaque blob in the header field to specify the
-account ID referenced in the email; this is included in the POST.<a href="#section-2-3" class="pilcrow">¶</a></p>
-<p id="section-2-4">Note that this kind of misdelivery shouldn't be possible if a service
-has previously verified the user's email address for the account.<a href="#section-2-4" class="pilcrow">¶</a></p>
+account ID referenced in the email; this is included in the POST.<a href="#section-2-4" class="pilcrow">¶</a></p>
+<p id="section-2-5">Note that this kind of misdelivery shouldn't be possible if a service
+has previously verified the user's email address for the account.<a href="#section-2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1569,7 +1576,8 @@ feedback on the language and first draft of the proposal. Thanks to
 Eliot Lear for helping guide the draft to the right hands for review.
 A detailed review by Jim Fenton was much appreciated and caught a number
 of key issues. Many thanks to the members of IETF ART for vigorous
-discussion thereof.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+discussion thereof and for feedback from the new MAILMAINT working group
+chaired by Ken Murchison.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
