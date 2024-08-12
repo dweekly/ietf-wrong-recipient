@@ -3,24 +3,24 @@ title: "Adding a Wrong Recipient URL for Handling Misdirected Emails"
 abbrev: "Wrong Recipient"
 category: info
 
-docname: draft-dweekly-wrong-recipient-latest
+docname: draft-ietf-mailmaint-wrong-recipient-latest
 submissiontype: IETF
 cat: std
 number:
 date:
 v: 3
 area: ART
-# workgroup: WG Working Group
+workgroup: MAILMAINT
 consensus: false
 keyword:
  - email
 venue:
-#  group: WG
-#  type: Working Group
-#  mail: WG@example.com
-#  arch: https://example.com/WG
-  github: "dweekly/ietf-wrong-recipient"
-  latest: "https://dweekly.github.io/ietf-wrong-recipient/draft-dweekly-wrong-recipient.html"
+  group: MAILMAINT
+  type: Working Group
+  mail:	mailmaint@ietf.org
+  arch: https://mailarchive.ietf.org/arch/browse/mailmaint/
+  github: dweekly/ietf-wrong-recipient
+  latest: https://dweekly.github.io/ietf-wrong-recipient/draft-dweekly-wrong-recipient.html
 
 author:
  -
