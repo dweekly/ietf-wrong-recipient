@@ -20,7 +20,7 @@ venue:
   mail: mailmaint@ietf.org
   arch: https://mailarchive.ietf.org/arch/browse/mailmaint/
   github: dweekly/ietf-wrong-recipient
-  latest: https://dweekly.github.io/ietf-wrong-recipient/draft-dweekly-wrong-recipient.html
+  latest: https://dweekly.github.io/ietf-wrong-recipient/draft-ietf-mailmaint-wrong-recipient.html
 
 author:
  -
