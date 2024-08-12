@@ -11,13 +11,13 @@ date:
 v: 3
 area: ART
 workgroup: MAILMAINT
-consensus: false
+consensus: true
 keyword:
  - email
 venue:
   group: MAILMAINT
   type: Working Group
-  mail:	mailmaint@ietf.org
+  mail: mailmaint@ietf.org
   arch: https://mailarchive.ietf.org/arch/browse/mailmaint/
   github: dweekly/ietf-wrong-recipient
   latest: https://dweekly.github.io/ietf-wrong-recipient/draft-dweekly-wrong-recipient.html
