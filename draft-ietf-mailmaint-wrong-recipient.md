@@ -4,6 +4,7 @@ abbrev: "Wrong Recipient"
 category: info
 
 docname: draft-ietf-mailmaint-wrong-recipient-latest
+replaces: draft-dweekly-wrong-recipient
 submissiontype: IETF
 cat: std
 number:
