@@ -7,9 +7,9 @@
 *~
 .tags
 /*-[0-9][0-9].xml
+/.*.mk
 /.gems/
 /.refcache
-/.targets.mk
 /.venv/
 /.vscode/
 /lib
@@ -17,7 +17,7 @@
 /versioned/
 Gemfile.lock
 archive.json
-draft-dweekly-wrong-recipient.xml
+draft-ietf-mailmaint-wrong-recipient.xml
 package-lock.json
 report.xml
 !requirements.txt
