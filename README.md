@@ -1,11 +1,11 @@
 # Adding a Wrong Recipient URL for Handling Misdirected Emails
 
-This is the working area for the individual Internet-Draft, "Adding a Wrong Recipient URL for Handling Misdirected Emails".
+This is the working area for the IETF [MAILMAINT Working Group](https://datatracker.ietf.org/group/mailmaint/documents/) Internet-Draft, "Adding a Wrong Recipient URL for Handling Misdirected Emails".
 
-* [Editor's Copy](https://dweekly.github.io/ietf-wrong-recipient/#go.draft-dweekly-wrong-recipient.html)
-* [Datatracker Page](https://datatracker.ietf.org/doc/draft-dweekly-wrong-recipient)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-dweekly-wrong-recipient)
-* [Compare Editor's Copy to Individual Draft](https://dweekly.github.io/ietf-wrong-recipient/#go.draft-dweekly-wrong-recipient.diff)
+* [Editor's Copy](https://dweekly.github.io/ietf-wrong-recipient/#go.draft-ietf-mailmaint-wrong-recipient.html)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-mailmaint-wrong-recipient)
+* [Working Group Draft](https://datatracker.ietf.org/doc/html/draft-ietf-mailmaint-wrong-recipient)
+* [Compare Editor's Copy to Working Group Draft](https://dweekly.github.io/ietf-wrong-recipient/#go.draft-ietf-mailmaint-wrong-recipient.diff)
 
 
 ## Contributing
