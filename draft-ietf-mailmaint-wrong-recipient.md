@@ -1,10 +1,8 @@
 ---
 title: "Adding a Wrong Recipient URL for Handling Misdirected Emails"
 abbrev: "Wrong Recipient"
-category: info
 
 docname: draft-ietf-mailmaint-wrong-recipient-latest
-replaces: draft-dweekly-wrong-recipient
 updates: 8058
 submissiontype: IETF
 cat: std
@@ -31,7 +29,7 @@ author:
     city: Redwood City
     region: CA
     country: US
--
+ -
     fullname: John Levine
     email: standards@standcore.com
     country: US
@@ -177,7 +175,6 @@ This document makes no requests to IANA.
 --- back
 
 # Acknowledgments
-
 {:numbered="false"}
 
 Many thanks to John Levine for helping shepherd this document as well
