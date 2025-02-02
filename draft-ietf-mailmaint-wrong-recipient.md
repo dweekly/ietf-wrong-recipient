@@ -1,8 +1,10 @@
 ---
 title: "Adding a Wrong Recipient URL for Handling Misdirected Emails"
 abbrev: "Wrong Recipient"
+category: info
 
 docname: draft-ietf-mailmaint-wrong-recipient-latest
+replaces: draft-dweekly-wrong-recipient
 updates: 8058
 submissiontype: IETF
 cat: std
