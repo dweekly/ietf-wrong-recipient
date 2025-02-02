@@ -6,6 +6,7 @@
 <meta content="initial-scale=1.0" name="viewport">
 <title>Adding a Wrong Recipient URL for Handling Misdirected Emails</title>
 <meta content="David Weekly" name="author">
+<meta content="John Levine" name="author">
 <meta content="
        This document describes a mechanism for an email recipient to indicate to a
 sender that they are not the intended recipient. 
@@ -1048,7 +1049,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <td class="right">February 2025</td>
 </tr></thead>
 <tfoot><tr>
-<td class="left">Weekly</td>
+<td class="left">Weekly &amp; Levine</td>
 <td class="center">Expires 6 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
@@ -1060,6 +1061,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="workgroup">MAILMAINT</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
 <dd class="internet-draft">draft-ietf-mailmaint-wrong-recipient-latest</dd>
+<dt class="label-updates">Updates:</dt>
+<dd class="updates">
+<a href="https://www.rfc-editor.org/rfc/rfc8058" class="eref">8058</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
 <time datetime="2025-02-02" class="published">2 February 2025</time>
@@ -1068,10 +1072,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
 <dd class="expires"><time datetime="2025-08-06">6 August 2025</time></dd>
-<dt class="label-authors">Author:</dt>
+<dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
       <div class="author-name">D. Weekly</div>
+</div>
+<div class="author">
+      <div class="author-name">J. Levine</div>
 </div>
 </dd>
 </dl>
@@ -1150,7 +1157,7 @@ sender that they are not the intended recipient.<a href="#section-abstract-1" cl
             <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
-            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-description" class="internal xref">Description</a></p>
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-proposal" class="internal xref">Proposal</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
             <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
@@ -1179,44 +1186,27 @@ sender that they are not the intended recipient.<a href="#section-abstract-1" cl
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-additional-requirements" class="internal xref">Additional Requirements</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-header-syntax" class="internal xref">Header Syntax</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-examples" class="internal xref">Examples</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-signed-https-uri" class="internal xref">Signed HTTPS URI</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-examples" class="internal xref">Examples</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
-                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-signed-https-uri" class="internal xref">Signed HTTPS URI</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
-                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-uuid-https-uri" class="internal xref">UUID HTTPS URI</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
-                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-combined-mailto-and-https-u" class="internal xref">Combined mailto: and HTTPS URIs</a></p>
-</li>
-            </ul>
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-normative-references" class="internal xref">Normative References</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#section-12" class="auto internal xref">12</a>. <a href="#name-references" class="internal xref">References</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.1">
-                <p id="section-toc.1-1.12.2.1.1"><a href="#section-12.1" class="auto internal xref">12.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.2">
-                <p id="section-toc.1-1.12.2.2.1"><a href="#section-12.2" class="auto internal xref">12.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
-</li>
-            </ul>
+            <p id="section-toc.1-1.12.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
-            <p id="section-toc.1-1.13.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
-            <p id="section-toc.1-1.14.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+            <p id="section-toc.1-1.13.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1236,40 +1226,30 @@ sender. Doing so is in the interest of all three involved parties: the
 inadvertent recipient (who does not want the email), the sender (who wants
 to be able to reach their customer and who does not want the liability of
 transmitting PII to a third party), and the intended recipient.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">This document specifies a structured mechanism for the reporting of such
-misdirected email via either HTTPS POST or email inbox, directly mirroring
-the List-Unsubscribe and List-Unsubscribe-Post mechanisms of <span>[<a href="#RFC2369" class="cite xref">RFC2369</a>]</span> and
-<span>[<a href="#RFC8058" class="cite xref">RFC8058</a>]</span> respectively.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-2">This document proposes a structured mechanism for the reporting of such
+misdirected email via HTTPS POST, updating
+the List-Unsubscribe-Post mechanism of <span>[<a href="#RFC8058" class="cite xref">RFC8058</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="description">
+<div id="proposal">
 <section id="section-2">
-      <h2 id="name-description">
-<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-description" class="section-name selfRef">Description</a>
+      <h2 id="name-proposal">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-proposal" class="section-name selfRef">Proposal</a>
       </h2>
-<p id="section-2-1">If the Wrong-Recipient header field is present in an email message,
-and the message is determined to likely not be spam, the user can select
-an option to indicate that they are not the intended recipient, and the
-sender is notified.<a href="#section-2-1" class="pilcrow">¶</a></p>
-<p id="section-2-2">Similar to one-click unsubscription <span>[<a href="#RFC8058" class="cite xref">RFC8058</a>]</span>, the mail service can
-perform this action in the background as an HTTPS POST to a provided
-URL without requiring the user's further attention to the matter. A
-mailto: URI may also be included for non-HTTP MUAs, akin to List-Unsubscribe
-from <span>[<a href="#RFC2369" class="cite xref">RFC2369</a>]</span>.<a href="#section-2-2" class="pilcrow">¶</a></p>
-<p id="section-2-3">For example of when this might be used, suppose a cable TV provider enrolls
-a new subscriber over the phone. The agent enrolling the customer may
-accidentally enter the wrong email address for their customer. A month
-later, the provider sends a bill to this email address, which may be valid
-but belongs to the wrong person. The mechanism described here gives the
-inadvertent recipient a mechanism to notify the provider that they need to
-update their records.<a href="#section-2-3" class="pilcrow">¶</a></p>
-<p id="section-2-4">Since it's possible the user may have a separate valid account with the
+<p id="section-2-1">There ought be a mechanism whereby a service can indicate
+it has an endpoint to indicate a "wrong recipient" of an email. If this
+header field is present in an email message, the user can select an option to
+indicate that they are not the intended recipient.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-2">Updating the one-click unsubscription <span>[<a href="#RFC8058" class="cite xref">RFC8058</a>]</span>, the mail service can
+perform this action in the background as an HTTPS POST to the provided
+URL without requiring the user's further attention to the matter.<a href="#section-2-2" class="pilcrow">¶</a></p>
+<p id="section-2-3">Since it's possible the user may have a separate valid account with the
 sending service, it may be important that the sender be able to tie
 <em>which</em> email was sent to the wrong recipient. For this reason, the
 sender may also include an opaque blob in the header field to specify the
-account ID referenced in the email; this is included in the POST.<a href="#section-2-4" class="pilcrow">¶</a></p>
-<p id="section-2-5">Note that this kind of misdelivery shouldn't be possible if a service
-has previously verified the user's email address for the account.<a href="#section-2-5" class="pilcrow">¶</a></p>
+account ID referenced in the email; this is included in the POST.<a href="#section-2-3" class="pilcrow">¶</a></p>
+<p id="section-2-4">Note that this kind of misdelivery shouldn't be possible if a service
+has previously verified the user's email address for the account.<a href="#section-2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1315,20 +1295,11 @@ recipients.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-mail-senders-when-sending" class="section-name selfRef">Mail Senders When Sending</a>
         </h3>
 <p id="section-6.1-1">Mail Senders that wish to be notified when a misdelivery has occurred
-<span class="bcp14">SHOULD</span> include a Wrong-Recipient header field with an HTTPS URI to which the
-recipient's mail client can POST and/or a mailto: URI to which an email
-should be sent. If this header field is included, the mail sender <span class="bcp14">MUST</span>
-ensure these endpoints are valid for a period of at least one year after
-sending.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<span class="bcp14">SHOULD</span> include a List-Unsubscribe: header field <span>[<a href="#RFC2369" class="cite xref">RFC2369</a>]</span> and a
+List-Unsubscribe-Post: header containing
+"Wrong-Recipient=One-Click".<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.1-2">The sender <span class="bcp14">MUST</span> encode a mapping to the underlying account identifier
-in the URI in order to allow the service to know which of their accounts
-has an incorrect email.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
-<p id="section-6.1-3">The URI <span class="bcp14">SHOULD</span> include an opaque identifier or another hard-to-forge
-component in addition to, or instead of, the plaintext recipient email
-address and user ID in order to prevent a malicious party from exercising
-the endpoint on a victim's behalf. Possible examples include using a
-signature parameter to the URI or UUID with a sender-local database
-lookup to retrieve the email and user ID referenced.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
+in the List-Unsubscribe: URI as described in Section 3.1 of <span>[<a href="#RFC8058" class="cite xref">RFC8058</a>]</span>.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="mail-recipients">
@@ -1339,20 +1310,11 @@ lookup to retrieve the email and user ID referenced.<a href="#section-6.1-3" cla
 <p id="section-6.2-1">When a mail client receives an email that includes a Wrong-Recipient
 header field, an option <span class="bcp14">SHOULD</span> be exposed in the user interface that allows
 a recipient to indicate that the mail was intended for another user, if
-and only if the email is reasonably assured to not be spam.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.2-2">If the user selects this option, the mail client <span class="bcp14">MUST</span> perform an
-HTTPS POST to the first https URI in the Wrong-Recipient header field,
-or send an empty message to the first referenced mailto: address.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
-<p id="section-6.2-3">To minimize XSRF attacks, the POST request <span class="bcp14">MUST NOT</span> include cookies,
-HTTP authorization, or any other context information. The "wrong
-recipient" reporting operation is logically unrelated to any previous
-web activity, and context information could inappropriately link the
-report to previous activity.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
-<p id="section-6.2-4">The POST body <span class="bcp14">MUST</span> include only "Wrong-Recipient=true".<a href="#section-6.2-4" class="pilcrow">¶</a></p>
-<p id="section-6.2-5">If the response is a HTTP 500 type error indicating server issue, the
-client <span class="bcp14">MAY</span> retry. If the HTTP response to the POST is a 200, the client
-<span class="bcp14">MUST NOT</span> retry. No feedback to the user as to the success or failure
-of this operation is proposed or required.<a href="#section-6.2-5" class="pilcrow">¶</a></p>
+the email is reasonably assured to not be spam.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2-2">If the user selects this option, the mail client performs an
+HTTPS POST to the first https URI in the List-Unsubscribe header field
+as described in section 3.2 of <span>[<a href="#RFC8058" class="cite xref">RFC8058</a>]</span>.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.2-3">The POST body <span class="bcp14">MUST</span> include only "Wrong-Recipient=One-Click".<a href="#section-6.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="mail-senders-after-wrong-sender-notification">
@@ -1363,21 +1325,12 @@ of this operation is proposed or required.<a href="#section-6.2-5" class="pilcro
 <p id="section-6.3-1">When a misdelivery has been indicated by a POST to the HTTPS URI or
 email to the given mailto: URI, the sender <span class="bcp14">MUST</span> make a reasonable effort
 to cease emails to the indicated email address for that user account.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
-<p id="section-6.3-2">The POST endpoint <span class="bcp14">MUST NOT</span> issue an HTTP redirect and <span class="bcp14">SHOULD</span> return a
-<code>200 OK</code> status; the content body will be ignored.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
-<p id="section-6.3-3">Any GET request to the same URI <span class="bcp14">MUST NOT</span> be treated as an indication
-of a wrong recipient notification, since anti-spam software may attempt
-a GET request to URIs mentioned in mail headers without receiving user
-consent. Senders <span class="bcp14">MAY</span> return an error <code>405 Method Not Allowed</code> in
-response to a GET request to the URI. The sender <span class="bcp14">MAY</span> elect
-to present a page at this URI responsive to a GET request that
-presents the user with a form that allows them to submit the POST.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
-<p id="section-6.3-4">The sender <span class="bcp14">SHOULD</span> make a best effort to attempt to discern a correct
+<p id="section-6.3-2">The sender <span class="bcp14">SHOULD</span> make a best effort to attempt to discern a correct
 email address for the user account, such as by using a different known
 email address for that user, postal mail, text message, phone call,
 app push, or presenting a notification in the user interface of the
 service. How the sender should accomplish this task is not part of
-this specification.<a href="#section-6.3-4" class="pilcrow">¶</a></p>
+this specification.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1387,207 +1340,84 @@ this specification.<a href="#section-6.3-4" class="pilcrow">¶</a></p>
       <h2 id="name-additional-requirements">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-additional-requirements" class="section-name selfRef">Additional Requirements</a>
       </h2>
-<p id="section-7-1">The email needs at least one valid authentication identifier.  In
-this version of the specification the only supported identifier type
-is DKIM <span>[<a href="#RFC6376" class="cite xref">RFC6376</a>]</span>, that provides a domain-level identifier in the
-content of the "d=" tag of a validated DKIM-Signature header field.<a href="#section-7-1" class="pilcrow">¶</a></p>
-<p id="section-7-2">The Wrong-Recipient header field needs to be included in the "h=" tag of a
-valid DKIM-Signature header field.<a href="#section-7-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="header-syntax">
-<section id="section-8">
-      <h2 id="name-header-syntax">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-header-syntax" class="section-name selfRef">Header Syntax</a>
-      </h2>
-<p id="section-8-1">The following ABNF imports fields and WSP from <span>[<a href="#RFC5322" class="cite xref">RFC5322</a>]</span> and URI from <span>[<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>.
-An https URI, mailto URI, or one of each are permitted. Other URI protocols
-<span class="bcp14">MUST NOT</span> be used.<a href="#section-8-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-8-2">
-<pre>
-fields =/ wrong-recipient
-
-wrong-recipient = "Wrong-Recipient:" 0*1WSP "&lt;" URI "&gt;"
-    *(0*1WSP "," 0*1WSP "&lt;" URI "&gt;") 0*WSP
-</pre><a href="#section-8-2" class="pilcrow">¶</a>
-</div>
+<p id="section-7-1">The email needs at least one valid authentication identifier, as
+described in Section 4 of <span>[<a href="#RFC8058" class="cite xref">RFC8058</a>]</span>.<a href="#section-7-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="examples">
-<section id="section-9">
+<section id="section-8">
       <h2 id="name-examples">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
       </h2>
 <div id="signed-https-uri">
-<section id="section-9.1">
+<section id="section-8.1">
         <h3 id="name-signed-https-uri">
-<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-signed-https-uri" class="section-name selfRef">Signed HTTPS URI</a>
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-signed-https-uri" class="section-name selfRef">Signed HTTPS URI</a>
         </h3>
-<p id="section-9.1-1">Header in Email:<a href="#section-9.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-9.1-2">
+<p id="section-8.1-1">Header fields in Email:<a href="#section-8.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-8.1-2">
 <pre>
-Wrong-Recipient: &lt;https://example.com/wrong-recipient?
-    uid=12345&amp;email=user@example.org&amp;sig=a29c83d&gt;
-</pre><a href="#section-9.1-2" class="pilcrow">¶</a>
+List-Unsubscribe: &lt;https://example.com/wrongrecip/uid12345/siga29c83d&gt;
+List-Unsubscribe-Post: Wrong-Recipient=One-Click
+</pre><a href="#section-8.1-2" class="pilcrow">¶</a>
 </div>
-<p id="section-9.1-3">Resulting POST request:<a href="#section-9.1-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-9.1-4">
+<p id="section-8.1-3">Resulting POST request:<a href="#section-8.1-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-8.1-4">
 <pre>
-POST /wrong-recipient?uid=12345&amp;email=user@example.org&amp;sig=a29c83d HTTP/1.1
+POST /wrongrecip/uid12345/siga29c83 HTTP/1.1
 Host: example.com
-Content-Length: 20
+Content-Length: 25
 
-Wrong-Recipient=true
-</pre><a href="#section-9.1-4" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
-<div id="uuid-https-uri">
-<section id="section-9.2">
-        <h3 id="name-uuid-https-uri">
-<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-uuid-https-uri" class="section-name selfRef">UUID HTTPS URI</a>
-        </h3>
-<p id="section-9.2-1">Header in Email:<a href="#section-9.2-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-9.2-2">
-<pre>
-Wrong-Recipient: &lt;https://example.com/wrong-recipient?
-    uuid=c002bd9a-e015-468f-8621-9baf6fca12aa&gt;
-</pre><a href="#section-9.2-2" class="pilcrow">¶</a>
-</div>
-<p id="section-9.2-3">Resulting POST request:<a href="#section-9.2-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-9.2-4">
-<pre>
-POST /wrong-recipient?uuid=c002bd9a-e015-468f-8621-9baf6fca12aa HTTP/1.1
-Host: example.com
-Content-Length: 20
-
-Wrong-Recipient=true
-</pre><a href="#section-9.2-4" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
-<div id="combined-mailto-and-https-uris">
-<section id="section-9.3">
-        <h3 id="name-combined-mailto-and-https-u">
-<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-combined-mailto-and-https-u" class="section-name selfRef">Combined mailto: and HTTPS URIs</a>
-        </h3>
-<p id="section-9.3-1">Header in Email:<a href="#section-9.3-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-9.3-2">
-<pre>
-Wrong-Recipient:
-    &lt;https://example.com/wrong-recipient?
-        uuid=c002bd9a-e015-468f-8621-9baf6fca12aa&gt;,
-    &lt;mailto:wrong-recipient.c002bd9a-e015-468f-8621-9baf6fca12aa
-        @example.org&gt;
-</pre><a href="#section-9.3-2" class="pilcrow">¶</a>
+Wrong-Recipient=One-Click
+</pre><a href="#section-8.1-4" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 </section>
 </div>
 <div id="security-considerations">
-<section id="section-10">
+<section id="section-9">
       <h2 id="name-security-considerations">
-<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-10-1">The Wrong-Recipient header field may contain the recipient address, but
-that is already exposed in other header fields like To.<a href="#section-10-1" class="pilcrow">¶</a></p>
-<p id="section-10-2">The user ID of the recipient with the sending service may be exposed
-by the Wrong-Recipient URI, which may not be desired but a sender
-can instead use an opaque blob to perform a mapping to a user ID on their
-end without leaking any information to outside parties, such as the UUID
-examples given above.<a href="#section-10-2" class="pilcrow">¶</a></p>
-<p id="section-10-3">A bad actor with access to the user's email could maliciously
+<p id="section-9-1">The considerations are similar to those in Section 6 of <span>[<a href="#RFC8058" class="cite xref">RFC8058</a>]</span>.<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-9-2">A bad actor with access to the user's email could maliciously
 indicate the recipient was a Wrong Recipient with any services that
 used this protocol, causing mail delivery and potentially account
-access difficulties for the user.<a href="#section-10-3" class="pilcrow">¶</a></p>
-<p id="section-10-4">The Wrong-Recipient POST provides a strong hint to the mailer that
-the address to which the message was sent was valid, and could in
-principle be used as a way to test whether an email address is valid.
-It also may expose the recipient's location and ISP via IP address.
-However, unlike passive methods like embedding tracking pixels, the
-mechanism proposed here takes an active user action. Nonetheless,
-MUAs ought only expose this Wrong Recipient option if relatively
-confident that the email is not spam.<a href="#section-10-4" class="pilcrow">¶</a></p>
-<p id="section-10-5">A sender with a guessable URI structure and no use of either signed
-parameters or a UUID would open themselves up to a malicious party
-POST'ing email credentials for victims, potentially causing difficulty.
-Senders should be strongly encouraged to use a signature or opaque
-blob as suggested. No algorithm for creating such a signature or
-opaque blob is included in this standard since only the sender needs
-to validate the correctness of the hard-to-forge URL.<a href="#section-10-5" class="pilcrow">¶</a></p>
+access difficulties for the user.<a href="#section-9-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
-<section id="section-11">
+<section id="section-10">
       <h2 id="name-iana-considerations">
-<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-11-1">IANA has registered a new entry to the "Provisional Message Header Field
-Names" registry, to be made permanent if this proposal becomes a standard.<a href="#section-11-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-11-2">
-<pre>
-Header field name: Wrong-Recipient
-Protocol: mail
-Status: Provisional
-Author/Change controller: IETF
-Specification document(s): *** This document ***
-Related information: none
-</pre><a href="#section-11-2" class="pilcrow">¶</a>
-</div>
+<p id="section-10-1">This document makes no requests to IANA.<a href="#section-10-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="sec-combined-references">
-<section id="section-12">
-      <h2 id="name-references">
-<a href="#section-12" class="section-number selfRef">12. </a><a href="#name-references" class="section-name selfRef">References</a>
-      </h2>
 <div id="sec-normative-references">
-<section id="section-12.1">
-        <h3 id="name-normative-references">
-<a href="#section-12.1" class="section-number selfRef">12.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
-        </h3>
+<section id="section-11">
+      <h2 id="name-normative-references">
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+      </h2>
 <dl class="references">
 <dt id="RFC2119">[RFC2119]</dt>
-        <dd>
+      <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC3986">[RFC3986]</dt>
-        <dd>
-<span class="refAuthor">Berners-Lee, T.</span>, <span class="refAuthor">Fielding, R.</span>, and <span class="refAuthor">L. Masinter</span>, <span class="refTitle">"Uniform Resource Identifier (URI): Generic Syntax"</span>, <span class="seriesInfo">STD 66</span>, <span class="seriesInfo">RFC 3986</span>, <span class="seriesInfo">DOI 10.17487/RFC3986</span>, <time datetime="2005-01" class="refDate">January 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3986">https://www.rfc-editor.org/rfc/rfc3986</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC5322">[RFC5322]</dt>
-        <dd>
-<span class="refAuthor">Resnick, P., Ed.</span>, <span class="refTitle">"Internet Message Format"</span>, <span class="seriesInfo">RFC 5322</span>, <span class="seriesInfo">DOI 10.17487/RFC5322</span>, <time datetime="2008-10" class="refDate">October 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5322">https://www.rfc-editor.org/rfc/rfc5322</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC8174">[RFC8174]</dt>
-      <dd>
-<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-</dl>
-</section>
-</div>
-<div id="sec-informative-references">
-<section id="section-12.2">
-        <h3 id="name-informative-references">
-<a href="#section-12.2" class="section-number selfRef">12.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
-        </h3>
-<dl class="references">
 <dt id="RFC2369">[RFC2369]</dt>
-        <dd>
+      <dd>
 <span class="refAuthor">Neufeld, G.</span> and <span class="refAuthor">J. Baer</span>, <span class="refTitle">"The Use of URLs as Meta-Syntax for Core Mail List Commands and their Transport through Message Header Fields"</span>, <span class="seriesInfo">RFC 2369</span>, <span class="seriesInfo">DOI 10.17487/RFC2369</span>, <time datetime="1998-07" class="refDate">July 1998</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2369">https://www.rfc-editor.org/rfc/rfc2369</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC6376">[RFC6376]</dt>
-        <dd>
-<span class="refAuthor">Crocker, D., Ed.</span>, <span class="refAuthor">Hansen, T., Ed.</span>, and <span class="refAuthor">M. Kucherawy, Ed.</span>, <span class="refTitle">"DomainKeys Identified Mail (DKIM) Signatures"</span>, <span class="seriesInfo">STD 76</span>, <span class="seriesInfo">RFC 6376</span>, <span class="seriesInfo">DOI 10.17487/RFC6376</span>, <time datetime="2011-09" class="refDate">September 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6376">https://www.rfc-editor.org/rfc/rfc6376</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8058">[RFC8058]</dt>
       <dd>
 <span class="refAuthor">Levine, J.</span> and <span class="refAuthor">T. Herkula</span>, <span class="refTitle">"Signaling One-Click Functionality for List Email Headers"</span>, <span class="seriesInfo">RFC 8058</span>, <span class="seriesInfo">DOI 10.17487/RFC8058</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8058">https://www.rfc-editor.org/rfc/rfc8058</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8174">[RFC8174]</dt>
+    <dd>
+<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 </dl>
-</section>
-</div>
 </section>
 </div>
 <div id="acknowledgments">
@@ -1601,14 +1431,13 @@ feedback on the language and first draft of the proposal. Thanks to
 Eliot Lear for helping guide the draft to the right hands for review.
 A detailed review by Jim Fenton was much appreciated and caught a number
 of key issues. Many thanks to the members of IETF ART for vigorous
-discussion thereof and for feedback from the new MAILMAINT working group
-chaired by Ken Murchison.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+discussion thereof and for feedback from the MAILMAINT working group.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
 <section id="appendix-B">
-      <h2 id="name-authors-address">
-<a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
+      <h2 id="name-authors-addresses">
+<a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">David Weekly</span></div>
@@ -1618,6 +1447,14 @@ chaired by Ken Murchison.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:david@weekly.org" class="email">david@weekly.org</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">John Levine</span></div>
+<div dir="auto" class="left"><span class="country-name">United States of America</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:standards@standcore.com" class="email">standards@standcore.com</a>
 </div>
 </address>
 </section>
