@@ -1,0 +1,267 @@
+
+
+
+
+MAILMAINT                                                      D. Weekly
+Internet-Draft                                                          
+Updates: 8058 (if approved)                                    J. Levine
+Intended status: Standards Track                         2 February 2025
+Expires: 6 August 2025
+
+
+      Adding a Wrong Recipient URL for Handling Misdirected Emails
+              draft-ietf-mailmaint-wrong-recipient-latest
+
+Abstract
+
+   This document describes a mechanism for an email recipient to
+   indicate to a sender that they are not the intended recipient.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   The latest revision of this draft can be found at
+   https://dweekly.github.io/ietf-wrong-recipient/draft-ietf-mailmaint-
+   wrong-recipient.html.  Status information for this document may be
+   found at https://datatracker.ietf.org/doc/draft-ietf-mailmaint-wrong-
+   recipient/.
+
+   Discussion of this document takes place on the MAILMAINT Working
+   Group mailing list (mailto:mailmaint@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/mailmaint/.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/mailmaint/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/dweekly/ietf-wrong-recipient.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 6 August 2025.
+
+Copyright Notice
+
+   Copyright (c) 2025 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Proposal
+   3.  Conventions and Definitions
+   4.  High-Level Goals
+   5.  Out of Scope
+   6.  Implementation
+     6.1.  Mail Senders When Sending
+     6.2.  Mail Recipients
+     6.3.  Mail Senders After Wrong Sender Notification
+   7.  Additional Requirements
+   8.  Examples
+     8.1.  Signed HTTPS URI
+   9.  Security Considerations
+   10. IANA Considerations
+   11. Normative References
+   Acknowledgments
+   Authors' Addresses
+
+1.  Introduction
+
+   Many users with common names and/or short email addresses receive
+   transactional emails from service providers intended for others.
+   These emails can't be unsubscribed (as they are transactional) but
+   neither are they spam.  These emails commonly are from a noreply@
+   email address; there is no standards-based mechanism to report a
+   "wrong recipient" to the sender.  Doing so is in the interest of all
+   three involved parties: the inadvertent recipient (who does not want
+   the email), the sender (who wants to be able to reach their customer
+   and who does not want the liability of transmitting PII to a third
+   party), and the intended recipient.
+
+   This document proposes a structured mechanism for the reporting of
+   such misdirected email via HTTPS POST, updating the List-Unsubscribe-
+   Post mechanism of [RFC8058].
+
+2.  Proposal
+
+   There ought be a mechanism whereby a service can indicate it has an
+   endpoint to indicate a "wrong recipient" of an email.  If this header
+   field is present in an email message, the user can select an option
+   to indicate that they are not the intended recipient.
+
+   Updating the one-click unsubscription [RFC8058], the mail service can
+   perform this action in the background as an HTTPS POST to the
+   provided URL without requiring the user's further attention to the
+   matter.
+
+   Since it's possible the user may have a separate valid account with
+   the sending service, it may be important that the sender be able to
+   tie _which_ email was sent to the wrong recipient.  For this reason,
+   the sender may also include an opaque blob in the header field to
+   specify the account ID referenced in the email; this is included in
+   the POST.
+
+   Note that this kind of misdelivery shouldn't be possible if a service
+   has previously verified the user's email address for the account.
+
+3.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+4.  High-Level Goals
+
+   Allow a recipient to stop receiving emails intended for someone else.
+
+   Allow a service to discover when they have the wrong email for a
+   user.
+
+5.  Out of Scope
+
+   This document does not propose a mechanism for automatically
+   discovering whether a given user is the correct recipient of an
+   email, though it is possible to use some of the signals in an email,
+   such as the intended recipient name, to infer a possible mismatch
+   between actual and intended recipients.
+
+6.  Implementation
+
+6.1.  Mail Senders When Sending
+
+   Mail Senders that wish to be notified when a misdelivery has occurred
+   SHOULD include a List-Unsubscribe: header field [RFC2369] and a List-
+   Unsubscribe-Post: header containing "Wrong-Recipient=One-Click".
+
+   The sender MUST encode a mapping to the underlying account identifier
+   in the List-Unsubscribe: URI as described in Section 3.1 of
+   [RFC8058].
+
+6.2.  Mail Recipients
+
+   When a mail client receives an email that includes a Wrong-Recipient
+   header field, an option SHOULD be exposed in the user interface that
+   allows a recipient to indicate that the mail was intended for another
+   user, if the email is reasonably assured to not be spam.
+
+   If the user selects this option, the mail client performs an HTTPS
+   POST to the first https URI in the List-Unsubscribe header field as
+   described in section 3.2 of [RFC8058].
+
+   The POST body MUST include only "Wrong-Recipient=One-Click".
+
+6.3.  Mail Senders After Wrong Sender Notification
+
+   When a misdelivery has been indicated by a POST to the HTTPS URI or
+   email to the given mailto: URI, the sender MUST make a reasonable
+   effort to cease emails to the indicated email address for that user
+   account.
+
+   The sender SHOULD make a best effort to attempt to discern a correct
+   email address for the user account, such as by using a different
+   known email address for that user, postal mail, text message, phone
+   call, app push, or presenting a notification in the user interface of
+   the service.  How the sender should accomplish this task is not part
+   of this specification.
+
+7.  Additional Requirements
+
+   The email needs at least one valid authentication identifier, as
+   described in Section 4 of [RFC8058].
+
+8.  Examples
+
+8.1.  Signed HTTPS URI
+
+   Header fields in Email:
+
+  List-Unsubscribe: <https://example.com/wrongrecip/uid12345/siga29c83d>
+  List-Unsubscribe-Post: Wrong-Recipient=One-Click
+
+   Resulting POST request:
+
+   POST /wrongrecip/uid12345/siga29c83 HTTP/1.1
+   Host: example.com
+   Content-Length: 25
+
+   Wrong-Recipient=One-Click
+
+9.  Security Considerations
+
+   The considerations are similar to those in Section 6 of [RFC8058].
+
+   A bad actor with access to the user's email could maliciously
+   indicate the recipient was a Wrong Recipient with any services that
+   used this protocol, causing mail delivery and potentially account
+   access difficulties for the user.
+
+10.  IANA Considerations
+
+   This document makes no requests to IANA.
+
+11.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC2369]  Neufeld, G. and J. Baer, "The Use of URLs as Meta-Syntax
+              for Core Mail List Commands and their Transport through
+              Message Header Fields", RFC 2369, DOI 10.17487/RFC2369,
+              July 1998, <https://www.rfc-editor.org/rfc/rfc2369>.
+
+   [RFC8058]  Levine, J. and T. Herkula, "Signaling One-Click
+              Functionality for List Email Headers", RFC 8058,
+              DOI 10.17487/RFC8058, January 2017,
+              <https://www.rfc-editor.org/rfc/rfc8058>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+Acknowledgments
+
+   Many thanks to John Levine for helping shepherd this document as well
+   as Oliver Deighton and Murray Kucherawy for their kind and actionable
+   feedback on the language and first draft of the proposal.  Thanks to
+   Eliot Lear for helping guide the draft to the right hands for review.
+   A detailed review by Jim Fenton was much appreciated and caught a
+   number of key issues.  Many thanks to the members of IETF ART for
+   vigorous discussion thereof and for feedback from the MAILMAINT
+   working group.
+
+Authors' Addresses
+
+   David Weekly
+   Redwood City, CA
+   United States of America
+   Email: david@weekly.org
+
+
+   John Levine
+   United States of America
+   Email: standards@standcore.com
