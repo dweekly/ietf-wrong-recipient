@@ -139,6 +139,12 @@ app push, or presenting a notification in the user interface of the
 service. How the sender should accomplish this task is not part of
 this specification.
 
+## Header syntax
+
+The ABNF grammar in Section 5 of [RFC8058] is augmented as follows:
+
+    postarg =/ "Wrong-Recipient=One-Click"
+
 # Additional Requirements
 
 The email needs at least one valid authentication identifier, as
@@ -179,8 +185,7 @@ This document makes no requests to IANA.
 # Acknowledgments
 {:numbered="false"}
 
-Many thanks to John Levine for helping shepherd this document as well
-as Oliver Deighton and Murray Kucherawy for their kind and actionable
+Many thanks to Oliver Deighton and Murray Kucherawy for their kind and actionable
 feedback on the language and first draft of the proposal. Thanks to
 Eliot Lear for helping guide the draft to the right hands for review.
 A detailed review by Jim Fenton was much appreciated and caught a number
