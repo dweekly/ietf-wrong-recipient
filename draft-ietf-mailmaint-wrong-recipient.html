@@ -11,12 +11,12 @@
        This document describes a mechanism for an email recipient to indicate to a
 sender that they are not the intended recipient. 
     " name="description">
-<meta content="xml2rfc 3.25.0" name="generator">
+<meta content="xml2rfc 3.27.0" name="generator">
 <meta content="email" name="keyword">
 <meta content="draft-ietf-mailmaint-wrong-recipient-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.25.0
-    Python 3.12.8
+  xml2rfc 3.27.0
+    Python 3.12.9
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
@@ -437,7 +437,7 @@ dl {
     margin-bottom: 0;
   }
 }
-dl > dt {
+dl:not(.dlNewline) > dt {
   float: left;
   margin-right: 2ch;
   min-width: 8ch;
@@ -1050,7 +1050,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Weekly &amp; Levine</td>
-<td class="center">Expires 6 August 2025</td>
+<td class="center">Expires 27 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1066,12 +1066,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc8058" class="eref">8058</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-02" class="published">2 February 2025</time>
+<time datetime="2025-02-23" class="published">23 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-06">6 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-27">27 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1124,7 +1124,7 @@ sender that they are not the intended recipient.<a href="#section-abstract-1" cl
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 27 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1179,6 +1179,9 @@ sender that they are not the intended recipient.<a href="#section-abstract-1" cl
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3">
                 <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-mail-senders-after-wrong-se" class="internal xref">Mail Senders After Wrong Sender Notification</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.4">
+                <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="auto internal xref">6.4</a>.  <a href="#name-header-syntax" class="internal xref">Header syntax</a></p>
 </li>
             </ul>
 </li>
@@ -1333,6 +1336,19 @@ service. How the sender should accomplish this task is not part of
 this specification.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
+<div id="header-syntax">
+<section id="section-6.4">
+        <h3 id="name-header-syntax">
+<a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-header-syntax" class="section-name selfRef">Header syntax</a>
+        </h3>
+<p id="section-6.4-1">The ABNF grammar in Section 5 of <span>[<a href="#RFC8058" class="cite xref">RFC8058</a>]</span> is augmented as follows:<a href="#section-6.4-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6.4-2">
+<pre>
+postarg =/ "Wrong-Recipient=One-Click"
+</pre><a href="#section-6.4-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
 </section>
 </div>
 <div id="additional-requirements">
@@ -1425,8 +1441,7 @@ access difficulties for the user.<a href="#section-9-2" class="pilcrow">¶</a></
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-A-1">Many thanks to John Levine for helping shepherd this document as well
-as Oliver Deighton and Murray Kucherawy for their kind and actionable
+<p id="appendix-A-1">Many thanks to Oliver Deighton and Murray Kucherawy for their kind and actionable
 feedback on the language and first draft of the proposal. Thanks to
 Eliot Lear for helping guide the draft to the right hands for review.
 A detailed review by Jim Fenton was much appreciated and caught a number

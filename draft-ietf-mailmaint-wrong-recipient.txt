@@ -5,8 +5,8 @@
 MAILMAINT                                                      D. Weekly
 Internet-Draft                                                          
 Updates: 8058 (if approved)                                    J. Levine
-Intended status: Standards Track                         2 February 2025
-Expires: 6 August 2025
+Intended status: Standards Track                        23 February 2025
+Expires: 27 August 2025
 
 
       Adding a Wrong Recipient URL for Handling Misdirected Emails
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 August 2025.
+   This Internet-Draft will expire on 27 August 2025.
 
 Copyright Notice
 
@@ -77,6 +77,7 @@ Table of Contents
      6.1.  Mail Senders When Sending
      6.2.  Mail Recipients
      6.3.  Mail Senders After Wrong Sender Notification
+     6.4.  Header syntax
    7.  Additional Requirements
    8.  Examples
      8.1.  Signed HTTPS URI
@@ -187,6 +188,12 @@ Table of Contents
    the service.  How the sender should accomplish this task is not part
    of this specification.
 
+6.4.  Header syntax
+
+   The ABNF grammar in Section 5 of [RFC8058] is augmented as follows:
+
+   postarg =/ "Wrong-Recipient=One-Click"
+
 7.  Additional Requirements
 
    The email needs at least one valid authentication identifier, as
@@ -245,14 +252,13 @@ Table of Contents
 
 Acknowledgments
 
-   Many thanks to John Levine for helping shepherd this document as well
-   as Oliver Deighton and Murray Kucherawy for their kind and actionable
-   feedback on the language and first draft of the proposal.  Thanks to
-   Eliot Lear for helping guide the draft to the right hands for review.
-   A detailed review by Jim Fenton was much appreciated and caught a
-   number of key issues.  Many thanks to the members of IETF ART for
-   vigorous discussion thereof and for feedback from the MAILMAINT
-   working group.
+   Many thanks to Oliver Deighton and Murray Kucherawy for their kind
+   and actionable feedback on the language and first draft of the
+   proposal.  Thanks to Eliot Lear for helping guide the draft to the
+   right hands for review.  A detailed review by Jim Fenton was much
+   appreciated and caught a number of key issues.  Many thanks to the
+   members of IETF ART for vigorous discussion thereof and for feedback
+   from the MAILMAINT working group.
 
 Authors' Addresses
 
